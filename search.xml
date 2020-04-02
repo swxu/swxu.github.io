@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>about</title>
+    <url>/2020/04/03/about/</url>
+    <content><![CDATA[<blockquote>
+<p>Shengwei<br>一个即将步入社会的研究生<br>Github: <a href="https://github.com/shengwei-xu" target="_blank" rel="noopener">https://github.com/shengwei-xu</a><br>Email: <a href="mailto:shengwei.xu@foxmail.com">shengwei.xu@foxmail.com</a><br>WeChat: xushengwei0592<br>QQ: 1093790349</p>
+</blockquote>
+<img src="../../../../images/avatar.jpg" alt="avatar" width="300" style="border-radius:50%"/>
+]]></content>
+      <categories>
+        <category>Daily</category>
+      </categories>
+  </entry>
+  <entry>
     <title>搭建Hexo博客</title>
     <url>/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<blockquote>

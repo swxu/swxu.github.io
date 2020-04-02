@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-04-02T17:18:24.077Z</updated>
+  <updated>2020-04-02T18:17:36.609Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>about</title>
+    <link href="http://yoursite.com/2020/04/03/about/"/>
+    <id>http://yoursite.com/2020/04/03/about/</id>
+    <published>2020-04-02T17:43:39.000Z</published>
+    <updated>2020-04-02T18:17:36.609Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>Shengwei<br>一个即将步入社会的研究生<br>Github: <a href="https://github.com/shengwei-xu" target="_blank" rel="noopener">https://github.com/shengwei-xu</a><br>Email: <a href="mailto:shengwei.xu@foxmail.com">shengwei.xu@foxmail.com</a><br>WeChat: xushengwei0592<br>QQ: 1093790349</p></blockquote><img src="../../../../images/avatar.jpg" alt="avatar" width="300" style="border-radius:50%"/>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote&gt;
+&lt;p&gt;Shengwei&lt;br&gt;一个即将步入社会的研究生&lt;br&gt;Github: &lt;a href=&quot;https://github.com/shengwei-xu&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://github.c
+      
+    
+    </summary>
+    
+    
+      <category term="Daily" scheme="http://yoursite.com/categories/Daily/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>搭建Hexo博客</title>
