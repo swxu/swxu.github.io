@@ -5,9 +5,9 @@
   
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="http://shengwei-xu.github.io/"/>
   <updated>2020-04-02T18:17:36.609Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>http://shengwei-xu.github.io/</id>
   
   <author>
     <name>Shengwei Xu</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>about</title>
-    <link href="http://yoursite.com/2020/04/03/about/"/>
-    <id>http://yoursite.com/2020/04/03/about/</id>
+    <link href="http://shengwei-xu.github.io/2020/04/03/about/"/>
+    <id>http://shengwei-xu.github.io/2020/04/03/about/</id>
     <published>2020-04-02T17:43:39.000Z</published>
     <updated>2020-04-02T18:17:36.609Z</updated>
     
@@ -36,15 +36,15 @@
     </summary>
     
     
-      <category term="Daily" scheme="http://yoursite.com/categories/Daily/"/>
+      <category term="Daily" scheme="http://shengwei-xu.github.io/categories/Daily/"/>
     
     
   </entry>
   
   <entry>
     <title>搭建Hexo博客</title>
-    <link href="http://yoursite.com/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/"/>
-    <id>http://yoursite.com/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/</id>
+    <link href="http://shengwei-xu.github.io/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://shengwei-xu.github.io/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/</id>
     <published>2020-04-02T14:54:37.000Z</published>
     <updated>2020-04-02T17:18:24.077Z</updated>
     
@@ -63,12 +63,12 @@
     </summary>
     
     
-      <category term="Daily" scheme="http://yoursite.com/categories/Daily/"/>
+      <category term="Daily" scheme="http://shengwei-xu.github.io/categories/Daily/"/>
     
     
-      <category term="Hexo" scheme="http://yoursite.com/tags/Hexo/"/>
+      <category term="Hexo" scheme="http://shengwei-xu.github.io/tags/Hexo/"/>
     
-      <category term="博客" scheme="http://yoursite.com/tags/%E5%8D%9A%E5%AE%A2/"/>
+      <category term="博客" scheme="http://shengwei-xu.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
     
   </entry>
   
