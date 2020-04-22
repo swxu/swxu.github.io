@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Tag: Git |  Shengwei&#39;s Blog
+    将Github Pages博客同步到Gitee Pages |  Shengwei&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -39,104 +39,245 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article class="articles">
+  <article id="post-将Github-Pages博客同步到Gitee-Pages" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
     
-    
-    <h1 class="page-type-title">#&nbspGit</h1>
-    
-    
-  
-  
-  
-  
-  
-  
-  <div class="archives-wrap">
-    <div class="archive-year-wrap">
-      <a href="/archives/2020" class="archive-year">2020</a>
-    </div>
-    <div class="archives">
-      
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/04/22/%E5%B0%86Github-Pages%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%AD%A5%E5%88%B0Gitee-Pages/" class="archive-article-date">
-  <time datetime="2020-04-22T03:10:18.000Z" itemprop="datePublished">04/22</time>
-</a>
+    <header class="article-header">
        
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/04/22/%E5%B0%86Github-Pages%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%AD%A5%E5%88%B0Gitee-Pages/"
-    >将Github Pages博客同步到Gitee Pages</a> 
-</h2>
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  将Github Pages博客同步到Gitee Pages
+</h1>
  
 
     </header>
     
+
     
+    <div class="article-meta">
+      <a href="/2020/04/22/%E5%B0%86Github-Pages%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%AD%A5%E5%88%B0Gitee-Pages/" class="article-date">
+  <time datetime="2020-04-22T03:10:18.000Z" itemprop="datePublished">2020-04-22</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">282字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <blockquote>
+<p><a href="https://blog.csdn.net/yakuaback/article/details/104513748" target="_blank" rel="noopener">参考文章</a></p>
+</blockquote>
+<h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p>国内访问 Github 的速度实在太慢, 所以打算将博客同步到 Gitee. </p>
+<p>如果还没有博客, 请参考我之前的文章–<a href="https://shengwei-xu.gitee.io/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/" target="_blank" rel="noopener">搭建Hexo博客</a>.</p>
+<h2 id="How"><a href="#How" class="headerlink" title="How"></a>How</h2><ol>
+<li>注册 <a href="https://gitee.com/" target="_blank" rel="noopener">Gitee</a> 账号, 建一个<strong>与用户名相同</strong>的 repo, 这里与 Github 不同, Github 是需要建一个 <code>{username}.github.io</code> 的 repo.</li>
+<li>在 Gitee repo 服务中设置启动 Gitee Pages. 此处不需要设置什么东西, 直接开启就好.<br><img src="../../../../images/2020/04/22/GiteePages.png" alt="GiteePages"></li>
+<li>修改博客根目录下的 <code>_config.yml</code>, 如下<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> </span><br><span class="line">    <span class="attr">github:</span> <span class="string">https://github.com/shengwei-xu/shengwei-xu.github.io</span></span><br><span class="line">    <span class="attr">gitee:</span> <span class="string">https://gitee.com/shengwei-xu/shengwei-xu.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></li>
+<li>到这里就可以利用之前已经安装好的 <code>hexo-deployer-git</code> 插件来发布文章到 Github Pages 和 Gitee Pages 了.</li>
+<li>Gitee 与 Github 有个很重要的不同点, <strong>Gitee 不免费支持推送自动部署</strong>, 要想实现 Github Pages 推送后自动部署的功能需要花钱. 如果不想花钱, 可以在上面所说的 repo 服务里的 Gitee Pages 中手动更新, 每次推送完文章来这里点一下更新就可以了.<br><img src="../../../../images/2020/04/22/GiteePagesUpdate.png" alt="GiteePagesUpdate"></li>
+</ol>
+<h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><ul>
+<li><a href="http://shengwei-xu.gitee.io/" target="_blank" rel="noopener">Gitee Pages 博客</a></li>
+<li><a href="http://shengwei-xu.github.io/">Github Pages 博客</a></li>
+</ul>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://shengwei-xu.github.io/2020/04/22/%E5%B0%86Github-Pages%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%AD%A5%E5%88%B0Gitee-Pages/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li></ul>
 
-    
+
+    </footer>
+
   </div>
-</article>
-      
+
   
   
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/04/13/Github%E4%BF%AE%E6%94%B9username%E5%90%8E%E4%BF%AE%E5%A4%8Dgit%E5%8E%86%E5%8F%B2%E5%BC%82%E5%B8%B8/" class="archive-article-date">
-  <time datetime="2020-04-13T04:09:31.000Z" itemprop="datePublished">04/13</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/04/13/Github%E4%BF%AE%E6%94%B9username%E5%90%8E%E4%BF%AE%E5%A4%8Dgit%E5%8E%86%E5%8F%B2%E5%BC%82%E5%B8%B8/"
-    >Github修改username后修复git历史异常</a> 
-</h2>
- 
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/04/13/Github%E4%BF%AE%E6%94%B9username%E5%90%8E%E4%BF%AE%E5%A4%8Dgit%E5%8E%86%E5%8F%B2%E5%BC%82%E5%B8%B8/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Github修改username后修复git历史异常</div>
+      </a>
+    
+  </nav>
 
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Github/" rel="tag">Github</a></li></ul>
 
-    
-  </div>
-</article>
-      
+  
+
   
   
-      <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/04/03/Git%E9%85%8D%E7%BD%AE/" class="archive-article-date">
-  <time datetime="2020-04-03T04:29:40.000Z" itemprop="datePublished">04/03</time>
-</a>
-       
-<h2 itemprop="name">
-  <a class="archive-article-title" href="/2020/04/03/Git%E9%85%8D%E7%BD%AE/"
-    >Git配置</a> 
-</h2>
- 
-
-    </header>
-    
-    
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/" rel="tag">Git</a></li></ul>
-
-    
-  </div>
-</article>
-      
-      
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
     </div>
-  </div>
-  
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'f5fPM8zUOFxGR3pjf9UMxcre-9Nh9j0Va',
+        app_key: 'GcVyiO865y4dQa9O8nMNSYrT',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
   
 
   
+  
+  
+
+</article>
 </section>
       <footer class="footer">
   <div class="outer">
@@ -281,6 +422,24 @@
 </script>
 
 
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 
 
