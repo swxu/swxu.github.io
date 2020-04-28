@@ -7,7 +7,7 @@
 <p><a href="https://blog.csdn.net/yakuaback/article/details/104513748" target="_blank" rel="noopener">参考文章</a></p>
 </blockquote>
 <h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p>国内访问 Github 的速度实在太慢, 所以打算将博客同步到 Gitee. </p>
-<p>如果还没有博客, 请参考我之前的文章 – <a href="https://shengwei-xu.gitee.io/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/" target="_blank" rel="noopener">搭建Hexo博客</a>.</p>
+<p>如果还没有博客, 请参考我之前的文章 – <a href="https://shengwei-xu.github.io/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/">搭建Hexo博客</a>.</p>
 <h2 id="How"><a href="#How" class="headerlink" title="How"></a>How</h2><ol>
 <li>注册 <a href="https://gitee.com/" target="_blank" rel="noopener">Gitee</a> 账号, 建一个<strong>与用户名相同</strong>的 repo, 这里与 Github 不同, Github 是需要建一个 <code>{username}.github.io</code> 的 repo.</li>
 <li>在 Gitee repo 服务中设置启动 Gitee Pages. 此处不需要设置什么东西, 直接开启就好.<br><img src="../../../../images/2020/04/22/GiteePages.png" alt="GiteePages"></li>
@@ -16,7 +16,7 @@
 <li>Gitee 与 Github 有个很重要的不同点, <strong>Gitee 不免费支持推送自动部署</strong>, 要想实现 Github Pages 推送后自动部署的功能需要花钱. 如果不想花钱, 可以在上面所说的 repo 服务里的 Gitee Pages 中手动更新, 每次推送完文章来这里点一下更新就可以了.<br><img src="../../../../images/2020/04/22/GiteePagesUpdate.png" alt="GiteePagesUpdate"></li>
 </ol>
 <h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><ul>
-<li><a href="http://shengwei-xu.gitee.io/" target="_blank" rel="noopener">Gitee Pages 博客</a></li>
+<li><del><a href="http://shengwei-xu.gitee.io/" target="_blank" rel="noopener">Gitee Pages 博客 [个人已不再使用]</a></del></li>
 <li><a href="http://shengwei-xu.github.io/">Github Pages 博客</a></li>
 </ul>
 ]]></content>
@@ -415,9 +415,10 @@
     <title>about</title>
     <url>/2020/04/03/about/</url>
     <content><![CDATA[<blockquote>
-<p>Shengwei<br>一个即将步入社会的研究生<br>Github: <a href="https://github.com/shengwei-xu" target="_blank" rel="noopener">https://github.com/shengwei-xu</a><br>Email: <a href="mailto:shengwei.xu@qq.com">shengwei.xu@qq.com</a><br>WeChat: xushengwei0592<br>QQ: 1093790349</p>
+<p>一个即将步入社会的研究生<br>Email: <a href="mailto:shengwei.xu@qq.com">shengwei.xu@qq.com</a><br>WeChat: xushengwei0592<br>QQ: 1093790349<br>友情链接: <a href="https://github.com/shengwei-xu" target="_blank" rel="noopener">Github</a> <a href="https://www.cnblogs.com/shengwei-xu/" target="_blank" rel="noopener">博客园</a></p>
 </blockquote>
-<img src="../../../../images/avatar.jpg" alt="avatar" width="300" style="border-radius:50%"/>]]></content>
+<img src="../../../../images/2020/04/03/avatar.jpg" alt="avatar" width="300" style="border-radius:50%"/>
+]]></content>
       <categories>
         <category>Daily</category>
       </categories>
