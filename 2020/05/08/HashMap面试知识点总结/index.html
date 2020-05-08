@@ -105,10 +105,7 @@
       
 
       
-      <blockquote>
-<p>主要参考 <a href="https://github.com/SnailClimb/JavaGuide" target="_blank" rel="noopener">JavaGuide</a> 和 <a href="https://github.com/AobingJava/JavaFamily" target="_blank" rel="noopener">敖丙</a> 的文章, 其中也有参考其他的文章, 但忘记保存链接了, 文中图片也是引用别的大佬的, 请见谅.<br>新手上路, 若有问题, 欢迎指正.</p>
-</blockquote>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>HashMap 的相关问题在校招面试中十分常见, 作为新人, HashMap 的各个问题应该要理解的十分透彻才行. 此外, ConcurrentHashMap, Hashtable 也是经常与 HashMap 一同被问, 下文中都有介绍.</p>
+      <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>HashMap 的相关问题在校招面试中十分常见, 作为新人, HashMap 的各个问题应该要理解的十分透彻才行. 此外, ConcurrentHashMap, Hashtable 也是经常与 HashMap 一同被问, 下文中都有介绍.</p>
 <h2 id="HashMap-原理"><a href="#HashMap-原理" class="headerlink" title="HashMap 原理"></a>HashMap 原理</h2><h3 id="1-底层数据结构"><a href="#1-底层数据结构" class="headerlink" title="1. 底层数据结构"></a>1. 底层数据结构</h3><p>HashMap 在 JDK1.8 之前底层使用的是数组+链表的拉链式结构; 在 JDK1.8 之后引入了红黑树, 当链表长度大于阈值的时候就会将这个链表转化为红黑树. </p>
 <h3 id="2-JDK1-8-中-HashMap-的改动"><a href="#2-JDK1-8-中-HashMap-的改动" class="headerlink" title="2. JDK1.8 中 HashMap 的改动"></a>2. JDK1.8 中 HashMap 的改动</h3><p>如上面所说, JDK1.8 中对 HashMap 做了一些改动, 在 JDK1.8 之前链表的插入使用的是头插法, 作者认为刚刚插入的数据被查询的可能性比较大, 头插法在多线程 resize 的时候可能会产生循环链表. JDK1.8 之后改为了尾插法, 在扩容的时候会保持链表元素原本的顺序, 避免了链表成环的问题, 但是改完以后 HashMap 依然不能支持并发场景. (不过 HashMap 本来也不是为多线程而生的呀)</p>
 <h3 id="3-链表和红黑树的转化"><a href="#3-链表和红黑树的转化" class="headerlink" title="3. 链表和红黑树的转化"></a>3. 链表和红黑树的转化</h3><p>当链表长度大于阈值的时候就会将这个链表转化为红黑树, 链表转化为红黑树的默认阈值为 8, 如果红黑树的节点个数减少到一定程度也会转化为链表, 这是出于时间和空间的折中方案, 默认会在节点个数减少到 6 的时候进行转化.</p>
@@ -193,6 +190,9 @@
 <h3 id="4-N-个元素要加入-HashMap-初始化为多大合适"><a href="#4-N-个元素要加入-HashMap-初始化为多大合适" class="headerlink" title="4. N 个元素要加入 HashMap, 初始化为多大合适?"></a>4. N 个元素要加入 HashMap, 初始化为多大合适?</h3><p>为了避免频繁的扩容操作, 我们应该尽量一次性初始化所需要的空间. </p>
 <p>如果负载因子为 <code>0.75</code>, 假设 <code>N = 16</code>, 由于 <code>threshold = capacity * load factor = 16 * 0.75 = 12</code>, 当加入第 12 个元素的时候, HashMap 就需要扩容了, 因此直接初始化为 32 最为合适. </p>
 <p>从上面这个例子中可以看出规律, 我们应该直接初始化 HashMap 的容量为 <code>capacity = N / load factor</code>, 并且将 <code>capacity</code> 向上取至 2 的幂次.</p>
+<blockquote>
+<p>主要参考了 <a href="https://github.com/SnailClimb/JavaGuide" target="_blank" rel="noopener">JavaGuide</a> 和 <a href="https://github.com/AobingJava/JavaFamily" target="_blank" rel="noopener">敖丙</a> 的文章, 其中也有参考其他的文章, 但忘记保存链接了, 文中图片也是引用别的大佬的, 请见谅.<br>新手上路, 若有问题, 欢迎指正.</p>
+</blockquote>
 
       
       <!-- reward -->
