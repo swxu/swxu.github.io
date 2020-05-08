@@ -191,7 +191,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteLastElement</span><span class="params">(Vector v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> lastIdx = v.size() - <span class="number">1</span>;</span><br><span class="line">    v.remove(lastIdx);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="4-N-个元素要加入-HashMap-初始化为多大合适"><a href="#4-N-个元素要加入-HashMap-初始化为多大合适" class="headerlink" title="4. N 个元素要加入 HashMap, 初始化为多大合适?"></a>4. N 个元素要加入 HashMap, 初始化为多大合适?</h3><p>为了避免频繁的扩容操作, 我们应该尽量一次性初始化所需要的空间. </p>
-<p>如果负载因子为 <code>0.75</code>, 假设 <code>N = 16</code>, 由于 <code>threshold = capacity * load factor = 16 * 0.75 = 12</code>, 当加入第 12 个元素的时候, HashMap 就需要扩容了, 因为直接初始化为 32 最为合适. </p>
+<p>如果负载因子为 <code>0.75</code>, 假设 <code>N = 16</code>, 由于 <code>threshold = capacity * load factor = 16 * 0.75 = 12</code>, 当加入第 12 个元素的时候, HashMap 就需要扩容了, 因此直接初始化为 32 最为合适. </p>
 <p>从上面这个例子中可以看出规律, 我们应该直接初始化 HashMap 的容量为 <code>capacity = N / load factor</code>, 并且将 <code>capacity</code> 向上取至 2 的幂次.</p>
 
       
