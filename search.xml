@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SSH连接Linux后出现ascii异常问题</title>
+    <url>/2020/07/08/SSH%E8%BF%9E%E6%8E%A5Linux%E5%90%8E%E5%87%BA%E7%8E%B0ascii%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Mac 通过 SSH 连接 Linux 服务器，尝试开启服务器上 Python3.6 的 web 服务的时候，服务发生无法解码的异常。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">UnicodeDecodeError: <span class="symbol">'ascii</span>' codec can<span class="symbol">'t</span> decode byte <span class="number">0</span>xe5 <span class="keyword">in</span> position <span class="number">443</span>: ordinal <span class="keyword">not</span> <span class="keyword">in</span> <span class="keyword">range</span>(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
+<p>令人费解的是，别人跟我运行相同命令是 ok 的。:(</p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>首先搜一波资料，看了这篇 <a href="https://blog.csdn.net/j___t/article/details/97705231" target="_blank" rel="noopener">帖子</a>，了解了大概是关于 <code>locale</code> 的问题。</p>
+<p>按照帖子中的方法设置了 <code>export PYTHONIOENCODING=utf-8</code>，然而还是没有效果，<code>sys.stdout.encoding</code> 依然输出 <code>ANSI_X3.4-1968</code>。而且服务器并不缺语言包。</p>
+<p>接着搜索，看了这篇 <a href="https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows" target="_blank" rel="noopener">StackOverflow 的帖子</a>，通过 <code>locale</code> 和 <code>locale -a</code> 命令检查了服务器的配置都没有问题，很是纳闷。</p>
+<p>执行 <code>locale</code> 命令的时候出现一行 <code>Cannot set LC_CTYPE to default locale: No such file or directory</code>，再次搜索这行报错，发现了这篇 <a href="https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672" target="_blank" rel="noopener">帖子</a>，帖子中第二高赞的回答中，提到了 <strong>Mac 通过 SSH 连接 Linux 服务器的时候，iTerm/Terminal 会自动设置环境变量，在终端的设置中取消自动设置即可</strong>。尝试了一下，果然有效。:P</p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>上面的解决方法可能导致 Mac 本地终端字符解码出现问题，可以检查 Mac 的 <code>locale</code> 环境变量有没有设置为 <code>utf-8</code>，这里就不赘述了。</p>
+<blockquote>
+<p>参考资料<br><a href="https://blog.csdn.net/j___t/article/details/97705231" target="_blank" rel="noopener">https://blog.csdn.net/j___t/article/details/97705231</a><br><a href="https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows" target="_blank" rel="noopener">https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows</a><br><a href="https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672" target="_blank" rel="noopener">https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>SSH</tag>
+        <tag>Terminal</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>职场沟通之沟通目标及常见误区漫谈</title>
     <url>/2020/06/28/%E8%81%8C%E5%9C%BA%E6%B2%9F%E9%80%9A%E4%B9%8B%E6%B2%9F%E9%80%9A%E7%9B%AE%E6%A0%87%E5%8F%8A%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA%E6%BC%AB%E8%B0%88/</url>
     <content><![CDATA[<blockquote>

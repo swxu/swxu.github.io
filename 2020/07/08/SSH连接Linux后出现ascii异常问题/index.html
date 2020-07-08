@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    categories |  Shengwei&#39;s Blog
+    SSH连接Linux后出现ascii异常问题 |  Shengwei&#39;s Blog
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -39,53 +39,240 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
+  <article id="post-SSH连接Linux后出现ascii异常问题" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  SSH连接Linux后出现ascii异常问题
+</h1>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/07/08/SSH%E8%BF%9E%E6%8E%A5Linux%E5%90%8E%E5%87%BA%E7%8E%B0ascii%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-07-08T01:59:58.000Z" itemprop="datePublished">2020-07-08</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Tools/">Tools</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">381字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">1分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Mac 通过 SSH 连接 Linux 服务器，尝试开启服务器上 Python3.6 的 web 服务的时候，服务发生无法解码的异常。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UnicodeDecodeError: <span class="symbol">'ascii</span>' codec can<span class="symbol">'t</span> decode byte <span class="number">0</span>xe5 <span class="keyword">in</span> position <span class="number">443</span>: ordinal <span class="keyword">not</span> <span class="keyword">in</span> <span class="keyword">range</span>(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
+<p>令人费解的是，别人跟我运行相同命令是 ok 的。:(</p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>首先搜一波资料，看了这篇 <a href="https://blog.csdn.net/j___t/article/details/97705231" target="_blank" rel="noopener">帖子</a>，了解了大概是关于 <code>locale</code> 的问题。</p>
+<p>按照帖子中的方法设置了 <code>export PYTHONIOENCODING=utf-8</code>，然而还是没有效果，<code>sys.stdout.encoding</code> 依然输出 <code>ANSI_X3.4-1968</code>。而且服务器并不缺语言包。</p>
+<p>接着搜索，看了这篇 <a href="https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows" target="_blank" rel="noopener">StackOverflow 的帖子</a>，通过 <code>locale</code> 和 <code>locale -a</code> 命令检查了服务器的配置都没有问题，很是纳闷。</p>
+<p>执行 <code>locale</code> 命令的时候出现一行 <code>Cannot set LC_CTYPE to default locale: No such file or directory</code>，再次搜索这行报错，发现了这篇 <a href="https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672" target="_blank" rel="noopener">帖子</a>，帖子中第二高赞的回答中，提到了 <strong>Mac 通过 SSH 连接 Linux 服务器的时候，iTerm/Terminal 会自动设置环境变量，在终端的设置中取消自动设置即可</strong>。尝试了一下，果然有效。:P</p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>上面的解决方法可能导致 Mac 本地终端字符解码出现问题，可以检查 Mac 的 <code>locale</code> 环境变量有没有设置为 <code>utf-8</code>，这里就不赘述了。</p>
+<blockquote>
+<p>参考资料<br><a href="https://blog.csdn.net/j___t/article/details/97705231" target="_blank" rel="noopener">https://blog.csdn.net/j___t/article/details/97705231</a><br><a href="https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows" target="_blank" rel="noopener">https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows</a><br><a href="https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672" target="_blank" rel="noopener">https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672</a></p>
+</blockquote>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+        <div class="declare">
+          <ul class="post-copyright">
+            <li>
+              <i class="ri-copyright-line"></i>
+              <strong>版权声明： </strong s>
+              本博客所有文章除特别声明外，均采用 <a href="https://www.apache.org/licenses/LICENSE-2.0.html" rel="external nofollow"
+                target="_blank">Apache License 2.0</a> 许可协议。转载请注明出处！
+            </li>
+          </ul>
+        </div>
+        
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://shengwei-xu.github.io/2020/07/08/SSH%E8%BF%9E%E6%8E%A5Linux%E5%90%8E%E5%87%BA%E7%8E%B0ascii%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSH/" rel="tag">SSH</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Terminal/" rel="tag">Terminal</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
   
-    <h1 class="page-type-title">分类</h1>
-    <!-- <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Daily/">Daily</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Deep-Learning/">Deep Learning</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Java/">Java</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a></li></ul> -->
-    <ul class="category-list">
-      
-         
-          <a class="category-list-link" href="/categories/Daily/" title="Daily">
-            <li class="category-list-item">
-            Daily<i>3</i>
-            </li>
-          </a>
-        
-      
-         
-          <a class="category-list-link" href="/categories/Deep-Learning/" title="Deep Learning">
-            <li class="category-list-item">
-            Deep Learning<i>1</i>
-            </li>
-          </a>
-        
-      
-         
-          <a class="category-list-link" href="/categories/Java/" title="Java">
-            <li class="category-list-item">
-            Java<i>1</i>
-            </li>
-          </a>
-        
-      
-         
-          <a class="category-list-link" href="/categories/Tools/" title="Tools">
-            <li class="category-list-item">
-            Tools<i>6</i>
-            </li>
-          </a>
-        
-      
-         
-          <a class="category-list-link" href="/categories/数据结构与算法/" title="数据结构与算法">
-            <li class="category-list-item">
-            数据结构与算法<i>2</i>
-            </li>
-          </a>
-        
-      
-      </ul>
   
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/06/28/%E8%81%8C%E5%9C%BA%E6%B2%9F%E9%80%9A%E4%B9%8B%E6%B2%9F%E9%80%9A%E7%9B%AE%E6%A0%87%E5%8F%8A%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA%E6%BC%AB%E8%B0%88/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">职场沟通之沟通目标及常见误区漫谈</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='https://cdn.jsdelivr.net/npm/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        app_id: 'f5fPM8zUOFxGR3pjf9UMxcre-9Nh9j0Va',
+        app_key: 'GcVyiO865y4dQa9O8nMNSYrT',
+        path: window.location.pathname,
+        notify: 'false',
+        verify: 'false',
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
 </section>
       <footer class="footer">
   <div class="outer">
@@ -230,6 +417,24 @@
 </script>
 
 
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
 
 
 
