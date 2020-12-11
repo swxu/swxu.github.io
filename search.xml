@@ -1,77 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>SSH连接Linux后出现ascii异常问题</title>
-    <url>/2020/07/08/SSH%E8%BF%9E%E6%8E%A5Linux%E5%90%8E%E5%87%BA%E7%8E%B0ascii%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Mac 通过 SSH 连接 Linux 服务器，尝试开启服务器上 Python3.6 的 web 服务的时候，服务发生无法解码的异常。</p>
-<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">UnicodeDecodeError: <span class="symbol">'ascii</span>' codec can<span class="symbol">'t</span> decode byte <span class="number">0</span>xe5 <span class="keyword">in</span> position <span class="number">443</span>: ordinal <span class="keyword">not</span> <span class="keyword">in</span> <span class="keyword">range</span>(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
-<p>令人费解的是，别人跟我运行相同命令是 ok 的。:(</p>
-<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>首先搜一波资料，看了这篇 <a href="https://blog.csdn.net/j___t/article/details/97705231" target="_blank" rel="noopener">帖子</a>，了解了大概是关于 <code>locale</code> 的问题。</p>
-<p>按照帖子中的方法设置了 <code>export PYTHONIOENCODING=utf-8</code>，然而还是没有效果，<code>sys.stdout.encoding</code> 依然输出 <code>ANSI_X3.4-1968</code>。而且服务器并不缺语言包。</p>
-<p>接着搜索，看了这篇 <a href="https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows" target="_blank" rel="noopener">StackOverflow 的帖子</a>，通过 <code>locale</code> 和 <code>locale -a</code> 命令检查了服务器的配置都没有问题，很是纳闷。</p>
-<p>执行 <code>locale</code> 命令的时候出现一行 <code>Cannot set LC_CTYPE to default locale: No such file or directory</code>，再次搜索这行报错，发现了这篇 <a href="https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672" target="_blank" rel="noopener">帖子</a>，帖子中第二高赞的回答中，提到了 <strong>Mac 通过 SSH 连接 Linux 服务器的时候，iTerm/Terminal 会自动设置环境变量，在终端的设置中取消自动设置即可</strong>。尝试了一下，果然有效。:P</p>
-<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>上面的解决方法可能导致 Mac 本地终端字符解码出现问题，可以检查 Mac 的 <code>locale</code> 环境变量有没有设置为 <code>utf-8</code>，这里就不赘述了。</p>
-<blockquote>
-<p>参考资料<br><a href="https://blog.csdn.net/j___t/article/details/97705231" target="_blank" rel="noopener">https://blog.csdn.net/j___t/article/details/97705231</a><br><a href="https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows" target="_blank" rel="noopener">https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows</a><br><a href="https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672" target="_blank" rel="noopener">https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672</a></p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Tools</category>
-      </categories>
-      <tags>
-        <tag>SSH</tag>
-        <tag>Terminal</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>职场沟通之沟通目标及常见误区漫谈</title>
-    <url>/2020/06/28/%E8%81%8C%E5%9C%BA%E6%B2%9F%E9%80%9A%E4%B9%8B%E6%B2%9F%E9%80%9A%E7%9B%AE%E6%A0%87%E5%8F%8A%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA%E6%BC%AB%E8%B0%88/</url>
-    <content><![CDATA[<blockquote>
-<p>记录曹大 caoz 2020 年中分享 – 职场沟通之沟通目标及常见误区漫谈</p>
-</blockquote>
-<h2 id="基于同理心，确定沟通目标"><a href="#基于同理心，确定沟通目标" class="headerlink" title="基于同理心，确定沟通目标"></a>基于同理心，确定沟通目标</h2><p>所有的沟通，表达，最核心的不是你表达了什么，而是对方接受了多少。所以，<strong>请务必记住你沟通的目标</strong>。</p>
-<p>那么，沟通目标，我分为三个层次，需要渐进前进。</p>
-<p>第一，对方能否明白你的意图。第一层目标，是能清晰明了的表达你的诉求和目标，让对方能够完全明白你所表达的是什么。</p>
-<p>第二，对方是否信任你的陈述。第二层目标，是能够让对方相信你所表达的诉求，其背景信息资料是可信任的，可被证明的。当你面对陌生人进行沟通的时候，需要做一定的自我证明。</p>
-<p>第三，对方能否达成你的意图。第三层目标，也就是真正的目标，是对方能够接受你的建议和诉求，从而实现你的沟通目标，那你说，我只记得这个目标就行了，但你要达到这个目标，应该首先完成前两个阶段目标，并且，在这个阶段，这需要对方能知道，你的诉求和目标，对对方而言，价值和利益在哪里。</p>
-<p>再次强调，让对方达成你的意图，一定要找到对方的价值点和利益点，而不只是你的价值点和利益点。</p>
-<h2 id="沟通的常见误区"><a href="#沟通的常见误区" class="headerlink" title="沟通的常见误区"></a>沟通的常见误区</h2><p>沟通，最大的忌讳是沉浸于自我表达。忽略对方的接受程度。</p>
-<h3 id="问题零，强调自己的正确"><a href="#问题零，强调自己的正确" class="headerlink" title="问题零，强调自己的正确"></a>问题零，强调自己的正确</h3><p>这里我必须强调一句，沟通的目的是让对方达成你的诉求，而不是证明你的正确，这是很多人在沟通过程中最常见的错误，不要作杠精，不要为了证明自己正确而忽略了真正的诉求和目标。</p>
-<p>比如一个客户，不专业，不认可你的产品介绍，你无论如何强调自己的产品观多么正确，都无法打动对方，你应该先聆听对方的真实诉求，然后顺应他的诉求寻找产品亮点。当我们面对不专业的领导，不专业的客户，不专业的合作伙伴，强调自己正确不会帮你达成目标，只会让你更加远离目标，先彻底理清对方的逻辑和诉求，基于对方的理解和目标，去推进自己的诉求。</p>
-<h3 id="问题一，缺乏背景铺垫，缺乏关键目标"><a href="#问题一，缺乏背景铺垫，缺乏关键目标" class="headerlink" title="问题一，缺乏背景铺垫，缺乏关键目标"></a>问题一，缺乏背景铺垫，缺乏关键目标</h3><p>背景信息包括：人物背景，诸如我是谁，相关负责人是谁；项目背景，这是一个什么项目，是谁负责的项目；相关行业知识背景，某些简称和缩略语，面向非同行业人士沟通时，应解释清楚；其他背景，诸如事件的起因，或者决策的关键逻辑等等。</p>
-<p>关键目标也很重要，一个沟通诉求的最终目标是什么，很多时候人们往往忽视了这一点。</p>
-<p>典型案例，我需要数据部门加急给我做一份xxx的数据。对方的疑惑，你是谁？我们很忙，你这个事情有什么意义？你又不是我的上司，我凭什么给你做事？</p>
-<p>正确表达：我是市场部门助理谁谁谁，昨天总监会上，我们部门总监与技术总监达成一致，尽快评估上次市场活动的效果，并基于此决定下一期的活动规划和预算，由此，烦请配合，加急提供一份xxx数据，相关信息任务已经汇报给有关部门负责人，如有更多疑问，可以随时联系我的微信xxx.</p>
-<p>把背景信息和目标信息补全，别人才知道为什么这件事需要紧急处理。</p>
-<p>典型案例，请在某某业务展示页面，提供相关推荐功能。对方的疑惑，推荐的目标是什么？是追求点击率，还是追求商业转化效率，还是挖掘优质原创，缺乏关键目标，做出来的东西就很可能南辕北辙。</p>
-<p>职场沟通的时候，不要认为我知道的你也知道，不要认为背景信息所有人都了解，不要认为别人和你的知识体系及逻辑体系一致。该补充的要补充，该说明的要说明。</p>
-<h3 id="问题二，缺乏可信性评估和证明"><a href="#问题二，缺乏可信性评估和证明" class="headerlink" title="问题二，缺乏可信性评估和证明"></a>问题二，缺乏可信性评估和证明</h3><p>社群里大量帖子，我有什么什么产品，我有什么什么资源，需要什么什么资源合作。对方的疑惑，很多骗子都这么说，我怎么知道你说的是不是真的，空手套白狼的还不够多么？这还算好的，很多直接扔一句，我需要什么资源，谁有的请联系我。你谁啊，你干嘛的啊。</p>
-<p>正确表达：我的资源，可以参见xxx榜单，xxx淘宝店铺销量，xxx的粉丝数，以及媒体报道xxx，目前需要什么什么资源合作。所有你提供的背景资料，均属于公开信息，可以查验。</p>
-<p>信任成本很高的，越是掌握优质资源的人，越看中信用关系，当你希望与掌握优质资源的人建立深度联系的时候你必须明白自己应该先证明自己的信用。</p>
-<h3 id="问题三，缺乏目标激励"><a href="#问题三，缺乏目标激励" class="headerlink" title="问题三，缺乏目标激励"></a>问题三，缺乏目标激励</h3><p>你的沟通目标，是希望获得别人的资源，别人的帮助，那么问题来了，别人凭什么给你资源，或者凭什么帮助你，对别人而言，利益是什么。</p>
-<p>典型案例，我是个大学生，我学习很勤奋，我对创业很有兴趣，我很仰慕曹老师，经常拜读您的大作，我希望得到您的指导和帮助。</p>
-<p>你仰慕我我就要帮助你？我凭什么呢。再说，很多这样的，说很仰慕我，很客气，我后台一查，一次赞赏都没有，也没有加入知识星球，两句便宜话就把我套住，我就这么贱么。</p>
-<p>你的沟通诉求，对别人来说，利益点和价值点在哪里，这是很重要的，特别是一些合作诉求，很多时候，不是说一定要利益等价交换，但你只说自己需要别人的帮助，却没有任何对别人帮助回馈的表达，你指望满大街的活雷锋？</p>
-<h3 id="问题四，沉浸于自high，无法自拔"><a href="#问题四，沉浸于自high，无法自拔" class="headerlink" title="问题四，沉浸于自high，无法自拔"></a>问题四，沉浸于自high，无法自拔</h3><p>典型案例，合作邮件或者应聘邮件，大量篇幅描述自己的心路历程，介绍自己多么优秀，多么努力，多么不容易。其实很多都是多余的。当然，你说有些场合需要吹牛逼，这也能理解，适可而止。</p>
-<h3 id="问题五，主次不分，啰哩啰嗦"><a href="#问题五，主次不分，啰哩啰嗦" class="headerlink" title="问题五，主次不分，啰哩啰嗦"></a>问题五，主次不分，啰哩啰嗦</h3><p>沟通也要抓大放小，你的核心目标是什么，你的次要目标是什么，你优先希望达成的诉求是什么，什么是锦上添花的东西。</p>
-<p>沟通的目标，一定要记住，要分清主次，要理解优先级。有的没的罗嗦一大堆，恨不得一次搞定所有事情，一点点来，之前也提过，信任是需要一定基础的。如果不是特别熟或者特别信任，可以从简单的开始合作，一点点建立信任基础。</p>
-<h3 id="问题六，缺乏必要的尊重"><a href="#问题六，缺乏必要的尊重" class="headerlink" title="问题六，缺乏必要的尊重"></a>问题六，缺乏必要的尊重</h3><p>尊重包括如下：</p>
-<p>称谓上的尊重。</p>
-<p>请求语气，劳烦，有劳，麻烦您，望不吝赐教。</p>
-<p>恰当的文字感谢，感谢各位的参与，抱歉耽误您的时间。</p>
-<p>行动举止上的礼让，比如，不要抢话，尊重别人的发言，不要不耐烦，保持距离，不要口沫横飞，沟通时注意坐姿，以及眼神交流。</p>
-<p>说一些典型缺乏尊重的案例：</p>
-<p>1、后台留言，管我叫小编，真的不合适。<br>2、自来熟，没见过两三次，好像很熟，各种随便，甚至上来勾肩搭背，抱歉，有些人不那么喜欢自来熟。<br>3、抢话，急于自我表达，缺乏倾听，沟通是相互的事情，如果姿态傲慢，或者漫不经心，就显得很没有诚意。<br>4、缺乏感谢。<br>5、很多大学生好友有互黑开玩笑的习惯，进入职场后，除非特别熟悉关系特别铁，我建议尽量不要把这种习惯带入职场。<br>6、一些商务女性，姿容娇美，习惯用撒娇作为沟通竞争力，有些企业用一些这样的女生做商务，我承认在有些场合很管用，但我强调一下，不是每个场合都适用，遇到不管用的场合，请适可而止，不要不知进退。<br>7、分场合的建议和批评，比如有些你认为对方不合适的事情，很多情况下，可能私下沟通比较好，不要公开指出别人的问题和缺陷。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>沟通的时候，<br>第一，让对方知道你是谁，你的目标和诉求是什么；<br>第二，让对方信任你的表述；<br>第三，让对方愿意接受你的建议，达成你的诉求。</p>
-]]></content>
-      <categories>
-        <category>Daily</category>
-      </categories>
-      <tags>
-        <tag>职场</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>HashMap面试知识点总结</title>
     <url>/2020/05/08/HashMap%E9%9D%A2%E8%AF%95%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>HashMap 的相关问题在校招面试中十分常见, 作为新人, HashMap 的各个问题应该要理解的十分透彻才行. 此外, ConcurrentHashMap, Hashtable 也是经常与 HashMap 一同被问, 下文中都有介绍.</p>
@@ -170,6 +99,67 @@
       </tags>
   </entry>
   <entry>
+    <title>搭建Hexo博客</title>
+    <url>/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<h2 id="安装部件"><a href="#安装部件" class="headerlink" title="安装部件"></a>安装部件</h2><ol>
+<li>git</li>
+<li>node.js<ul>
+<li>安装国内源 (可跳过, 下面步骤中的 <code>cnpm</code> 换成 <code>npm</code>)<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></li>
+<li>安装 hexo<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure></li>
+<li>安装 deployer 插件, 在 <code>hexo deploy</code> 之后自动 <code>push</code> 到 github 仓库<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cnpm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><ol>
+<li>创建博客文件夹并初始化<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir HexoBlog &amp;&amp; cd HexoBlog/ &amp;&amp; sudo hexo init</span><br></pre></td></tr></table></figure></li>
+<li>修改 _config.yml<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在文件的最后</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/swxu/swxu.github.io</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><ol>
+<li><code>hexo new &quot;文章题目&quot;</code> 创建博客</li>
+<li><code>hexo server</code> 可以在本地预览</li>
+<li><code>hexo deploy</code> 通过之前安装的插件直接部署到 github</li>
+<li><code>hexo help</code> 查看 hexo 的其他命令</li>
+</ol>
+<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><blockquote>
+<p><a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank" rel="noopener">Ayer 的 Github 主页</a></p>
+</blockquote>
+<ol>
+<li>把主题 clone 到 themes 文件夹下<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Shen-Yu/hexo-theme-ayer.git themes/ayer</span><br></pre></td></tr></table></figure></li>
+<li>修改 _config.yml<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">ayer</span></span><br></pre></td></tr></table></figure></li>
+<li>其他修改参考 <a href="https://shen-yu.gitee.io/2019/ayer/" target="_blank" rel="noopener">Ayer</a> 的说明</li>
+</ol>
+<blockquote>
+<p>参考 <a href="https://www.bilibili.com/video/BV1Yb411a7ty" target="_blank" rel="noopener">CodeSheep 视频</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git配置</title>
+    <url>/2020/04/03/Git%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<ul>
+<li><a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">Git toturial</a></li>
+<li><a href="https://github.com/arslanbilal/git-cheat-sheet" target="_blank" rel="noopener">Git Cheat Sheet</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># .gitconfig 文件</span><br><span class="line">[user]</span><br><span class="line">	name &#x3D; shengweixu</span><br><span class="line">	email &#x3D; shengweixu@outlook.com</span><br><span class="line">#[http]</span><br><span class="line">#	proxy &#x3D; socks5:&#x2F;&#x2F;127.0.0.1:1086</span><br><span class="line">#[https]</span><br><span class="line">#	proxy &#x3D; socks5:&#x2F;&#x2F;127.0.0.1:1086</span><br><span class="line">[color]</span><br><span class="line">	ui &#x3D; true</span><br><span class="line">[alias]</span><br><span class="line">	st &#x3D; status</span><br><span class="line">	co &#x3D; checkout</span><br><span class="line">	ci &#x3D; commit</span><br><span class="line">	br &#x3D; branch</span><br><span class="line">	unstage &#x3D; reset HEAD</span><br><span class="line">	lg &#x3D; log --color --graph --pretty&#x3D;format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>在Maven项目中添加代码目录下的配置文件</title>
     <url>/2020/05/04/%E5%9C%A8Maven%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81%E7%9B%AE%E5%BD%95%E4%B8%8B%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>Maven 是约定大于配置的一种工具, 通常约定在 <code>src/main/resources</code> 目录下放配置文件, 当我们想要在 <code>src/main/java</code> 代码目录下放置配置文件用来测试, Maven 项目 build 的时候并不会把代码目录下的配置文件添加到相应的位置, 可以查看 <code>target</code> 目录来证实这个情况, 最终会导致测试代码报错, 无法找到相应的配置文件.</p>
@@ -184,61 +174,41 @@
       </tags>
   </entry>
   <entry>
-    <title>将Github Pages博客同步到Gitee Pages</title>
-    <url>/2020/04/22/%E5%B0%86Github-Pages%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%AD%A5%E5%88%B0Gitee-Pages/</url>
-    <content><![CDATA[<h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p>国内访问 Github 的速度实在太慢, 所以打算将博客同步到 Gitee. </p>
-<p>如果还没有博客, 请参考我之前的文章 – <a href="https://swxu.github.io/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/">搭建Hexo博客</a>.</p>
-<h2 id="How"><a href="#How" class="headerlink" title="How"></a>How</h2><ol>
-<li>注册 <a href="https://gitee.com/" target="_blank" rel="noopener">Gitee</a> 账号, 建一个<strong>与用户名相同</strong>的 repo, 这里与 Github 不同, Github 是需要建一个 <code>{username}.github.io</code> 的 repo.</li>
-<li>在 Gitee repo 服务中设置启动 Gitee Pages. 此处不需要设置什么东西, 直接开启就好.<br><img src="../../../../images/2020/04/22/GiteePages.png" alt="GiteePages"></li>
-<li>修改博客根目录下的 <code>_config.yml</code>, 如下<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> </span><br><span class="line">    <span class="attr">github:</span> <span class="string">https://github.com/shengwei-xu/shengwei-xu.github.io</span></span><br><span class="line">    <span class="attr">gitee:</span> <span class="string">https://gitee.com/shengwei-xu/shengwei-xu.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></li>
-<li>到这里就可以利用之前已经安装好的 <code>hexo-deployer-git</code> 插件来发布文章到 Github Pages 和 Gitee Pages 了.</li>
-<li>Gitee 与 Github 有个很重要的不同点, <strong>Gitee 不免费支持推送自动部署</strong>, 要想实现 Github Pages 推送后自动部署的功能需要花钱. 如果不想花钱, 可以在上面所说的 repo 服务里的 Gitee Pages 中手动更新, 每次推送完文章来这里点一下更新就可以了.<br><img src="../../../../images/2020/04/22/GiteePagesUpdate.png" alt="GiteePagesUpdate"></li>
-</ol>
-<h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><ul>
-<li><a href="http://shengweixu.gitee.io/" target="_blank" rel="noopener">Gitee Pages 博客</a></li>
-<li><a href="http://swxu.github.io/">Github Pages 博客</a></li>
-</ul>
-<blockquote>
-<p><a href="https://blog.csdn.net/yakuaback/article/details/104513748" target="_blank" rel="noopener">参考文章</a></p>
+    <title>用自定义数据集训练YOLO</title>
+    <url>/2020/04/05/%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E8%AE%AD%E7%BB%83YOLO/</url>
+    <content><![CDATA[<h1 id="YOLO-Training-Conclusion-on-Custom-Dataset-and-FAQs"><a href="#YOLO-Training-Conclusion-on-Custom-Dataset-and-FAQs" class="headerlink" title="YOLO Training Conclusion on Custom Dataset and FAQs"></a>YOLO Training Conclusion on Custom Dataset and FAQs</h1><blockquote>
+<p><a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener">YOLO official website</a></p>
 </blockquote>
-]]></content>
-      <categories>
-        <category>Tools</category>
-      </categories>
-      <tags>
-        <tag>Git</tag>
-        <tag>Hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Github修改username后修复git历史异常</title>
-    <url>/2020/04/13/Github%E4%BF%AE%E6%94%B9username%E5%90%8E%E4%BF%AE%E5%A4%8Dgit%E5%8E%86%E5%8F%B2%E5%BC%82%E5%B8%B8/</url>
-    <content><![CDATA[<ol>
-<li><p>修改 <code>~/.gitconfig</code> 文件中的 <code>user.name</code>, <code>user.email</code>.</p>
-</li>
-<li><p>将下面的脚本文件 <code>git-user-change.sh</code> 放在需要修改的项目的上一层文件夹中, <strong>脚本的源码中需要修改对应的用户名和邮箱</strong>.</p>
-</li>
-<li><p>在项目根目录下执行 <code>sh ../git-user-change.sh</code> 便开始自动化重写所有脚本能匹配到的提交信息了. 拥有条件判断的此脚本, 最大的好处便是, 不会覆盖掉团队协作项目中, 他人的提交信息.<br>下面这条命令会将项目 Git 所有历史里删除对 src.zip 的记录, 整个 .git 文件夹会轻很多. <code>git filter-branch --force --index-filter &#39;git rm -rf --cached --ignore-unmatch ./src.zip&#39; --prune-empty --tag-name-filter cat -- --all</code></p>
-</li>
-<li><p>强制更新 <code>git push origin --force</code>, 如果需要授权, 在 github 上修改 SSH 公钥.</p>
-</li>
-</ol>
+<h2 id="Prepare-dataset"><a href="#Prepare-dataset" class="headerlink" title="Prepare dataset"></a>Prepare dataset</h2><p>You can google how to prepare your custom dataset. There are lots of tutorials available. I recommend <a href="https://timebutt.github.io/static/how-to-train-yolov2-to-detect-custom-objects/" target="_blank" rel="noopener">this article</a>. </p>
+<p>My custom dataset has ~15k images and 3 classes. I just replace image files in VOC dataset <code>/VOCdevkit</code> with my custom images and run official python script to generate data YOLO needs. You can click the official website link above to find the script. It’s easy to learn how to use it.</p>
+<h2 id="Compile"><a href="#Compile" class="headerlink" title="Compile"></a>Compile</h2><p>We need to modify <code>Makefile</code> before we <code>make</code> it.</p>
+<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">GPU=1 <span class="comment"># If you have a GPU, it will speed up the training process greatly.</span></span><br><span class="line">CUDNN=1 <span class="comment"># Using cudnn</span></span><br><span class="line">OPENCV=0 <span class="comment"># Using camera</span></span><br><span class="line">OPENMP=0</span><br><span class="line">DEBUG=0</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>Then, just <code>make</code> the source code.</p>
+<h2 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h2><p>There are three files needing to be modified before training on custom dataset.</p>
 <ul>
-<li>下面是 <code>git-user-change.sh</code> 的代码, 保存后执行上面的命令, 其中 <code>if</code> 中的判断条件是原来的邮箱, <code>then</code> 中是现在的名字和邮箱.<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"> </span><br><span class="line">git filter-branch --env-filter '</span><br><span class="line">    an="$GIT_AUTHOR_NAME"</span><br><span class="line">    am="$GIT_AUTHOR_EMAIL"</span><br><span class="line">    cn="$GIT_COMMITTER_NAME"</span><br><span class="line">    cm="$GIT_COMMITTER_EMAIL"</span><br><span class="line">    if [ "$GIT_COMMITTER_EMAIL" = "willsnowdev@gmail.com" ]</span><br><span class="line">    then</span><br><span class="line">        cn="shengwei.xu"</span><br><span class="line">        cm="shengwei.xu@qq.com"</span><br><span class="line">    fi</span><br><span class="line">    if [ "$GIT_AUTHOR_EMAIL" = "willsnowdev@gmail.com" ]</span><br><span class="line">    then</span><br><span class="line">        an="shengwei.xu"</span><br><span class="line">        am="shengwei.xu@qq.com"</span><br><span class="line">    fi</span><br><span class="line"> </span><br><span class="line">    export GIT_AUTHOR_NAME="$an"</span><br><span class="line">    export GIT_AUTHOR_EMAIL="$am"</span><br><span class="line">    export GIT_COMMITTER_NAME="$cn"</span><br><span class="line">    export GIT_COMMITTER_EMAIL="$cm"</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
-
-
-</li>
+<li>First, you just need to write class names in your dataset to <code>data/voc.names</code>. Of course, you can change the file name.<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span></span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li>Second, you need to modify <code>cfg/voc.names</code>. Just change it based on your custom dataset and file paths.<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">classes</span>= <span class="number">3</span></span><br><span class="line"><span class="attr">train</span>  = &lt;path to train file&gt;/train.txt</span><br><span class="line"><span class="attr">valid</span>  = &lt;path to test file&gt;/test.txt</span><br><span class="line"><span class="attr">names</span> = data/voc.names</span><br><span class="line"><span class="attr">backup</span> = backup</span><br></pre></td></tr></table></figure></li>
+<li>Before strating step 3, I recommend you to read <a href="https://stackoverflow.com/questions/50390836/understanding-darknets-yolo-cfg-config-files" target="_blank" rel="noopener">this article</a> to understand what parameters mean.</li>
+<li>Third, the key step here. We need to modify yolo network configuration to meet our requirements for custom dataset. Read configuration below <strong>carefully</strong>. Here we give two examples, <code>yolov2-tiny-voc.cfg</code> and <code>yolov3-voc.cfg</code>, you can configure the network you like.<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// yolov2-tiny-voc.cfg</span></span><br><span class="line">[net]</span><br><span class="line"># Testing</span><br><span class="line"># batch=<span class="number">1</span></span><br><span class="line"># subdivisions=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"># Training</span><br><span class="line">batch=<span class="number">64</span> # you need to comment testing cfg <span class="keyword">and</span> uncomment training cfg</span><br><span class="line">subdivisions=<span class="number">2</span></span><br><span class="line"></span><br><span class="line">width=<span class="number">416</span></span><br><span class="line">height=<span class="number">416</span></span><br><span class="line">channels=<span class="number">3</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"># you can change it <span class="keyword">for</span> your own settings</span><br><span class="line">learning_rate=<span class="number">0.001</span></span><br><span class="line">max_batches = <span class="number">40200</span></span><br><span class="line">policy=steps</span><br><span class="line">steps=<span class="number">-1</span>,<span class="number">100</span>,<span class="number">20000</span>,<span class="number">30000</span></span><br><span class="line">scales=<span class="number">.1</span>,<span class="number">10</span>,<span class="number">.1</span>,<span class="number">.1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">[convolutional]</span><br><span class="line">size=<span class="number">1</span></span><br><span class="line">stride=<span class="number">1</span></span><br><span class="line">pad=<span class="number">1</span></span><br><span class="line">filters=<span class="number">40</span> # filters = num * (classes + coords + <span class="number">1</span>) = <span class="number">5</span> * (<span class="number">3</span> + <span class="number">4</span> + <span class="number">1</span>)</span><br><span class="line">activation=linear</span><br><span class="line"></span><br><span class="line">[region]</span><br><span class="line">anchors = <span class="number">1.08</span>,<span class="number">1.19</span>,  <span class="number">3.42</span>,<span class="number">4.41</span>,  <span class="number">6.63</span>,<span class="number">11.38</span>,  <span class="number">9.42</span>,<span class="number">5.11</span>,  <span class="number">16.62</span>,<span class="number">10.52</span></span><br><span class="line">bias_match=<span class="number">1</span></span><br><span class="line">classes=<span class="number">3</span> # you may need to change <span class="keyword">this</span></span><br><span class="line">coords=<span class="number">4</span> # compute filters above</span><br><span class="line">num=<span class="number">5</span> # compute filters above</span><br><span class="line">softmax=<span class="number">1</span></span><br><span class="line">jitter=<span class="number">.2</span></span><br><span class="line">rescore=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">object_scale=<span class="number">5</span></span><br><span class="line">noobject_scale=<span class="number">1</span></span><br><span class="line">class_scale=<span class="number">1</span></span><br><span class="line">coord_scale=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">absolute=<span class="number">1</span></span><br><span class="line">thresh = <span class="number">.6</span></span><br><span class="line">random=<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// yolov3-voc.cfg</span></span><br><span class="line">[net]</span><br><span class="line"># Testing</span><br><span class="line"># batch=<span class="number">1</span></span><br><span class="line"># subdivisions=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"># Training</span><br><span class="line">batch=<span class="number">64</span> # you need to comment testing cfg <span class="keyword">and</span> uncomment training cfg</span><br><span class="line">subdivisions=<span class="number">2</span></span><br><span class="line"></span><br><span class="line">width=<span class="number">416</span></span><br><span class="line">height=<span class="number">416</span></span><br><span class="line">channels=<span class="number">3</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"># you can change it <span class="keyword">for</span> your own settings</span><br><span class="line">learning_rate=<span class="number">0.001</span></span><br><span class="line">max_batches = <span class="number">40200</span></span><br><span class="line">policy=steps</span><br><span class="line">steps=<span class="number">-1</span>,<span class="number">100</span>,<span class="number">20000</span>,<span class="number">30000</span></span><br><span class="line">scales=<span class="number">.1</span>,<span class="number">10</span>,<span class="number">.1</span>,<span class="number">.1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">[convolutional]</span><br><span class="line">size=<span class="number">1</span></span><br><span class="line">stride=<span class="number">1</span></span><br><span class="line">pad=<span class="number">1</span></span><br><span class="line">filters=<span class="number">24</span> # filters = <span class="number">3</span> * (classes + <span class="number">5</span>)</span><br><span class="line">activation=linear</span><br><span class="line"></span><br><span class="line">[yolo]</span><br><span class="line">mask = <span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span></span><br><span class="line">anchors = <span class="number">10</span>,<span class="number">13</span>,  <span class="number">16</span>,<span class="number">30</span>,  <span class="number">33</span>,<span class="number">23</span>,  <span class="number">30</span>,<span class="number">61</span>,  <span class="number">62</span>,<span class="number">45</span>,  <span class="number">59</span>,<span class="number">119</span>,  <span class="number">116</span>,<span class="number">90</span>,  <span class="number">156</span>,<span class="number">198</span>,  <span class="number">373</span>,<span class="number">326</span></span><br><span class="line">classes=<span class="number">3</span> # you need to modify</span><br><span class="line">num=<span class="number">9</span></span><br><span class="line">jitter=<span class="number">.3</span></span><br><span class="line">ignore_thresh = <span class="number">.5</span></span><br><span class="line">truth_thresh = <span class="number">1</span></span><br><span class="line">random=<span class="number">1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">[convolutional]</span><br><span class="line">size=<span class="number">1</span></span><br><span class="line">stride=<span class="number">1</span></span><br><span class="line">pad=<span class="number">1</span></span><br><span class="line">filters=<span class="number">24</span> # filters = <span class="number">3</span> * (classes + <span class="number">5</span>)</span><br><span class="line">activation=linear</span><br><span class="line"></span><br><span class="line">[yolo]</span><br><span class="line">mask = <span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span></span><br><span class="line">anchors = <span class="number">10</span>,<span class="number">13</span>,  <span class="number">16</span>,<span class="number">30</span>,  <span class="number">33</span>,<span class="number">23</span>,  <span class="number">30</span>,<span class="number">61</span>,  <span class="number">62</span>,<span class="number">45</span>,  <span class="number">59</span>,<span class="number">119</span>,  <span class="number">116</span>,<span class="number">90</span>,  <span class="number">156</span>,<span class="number">198</span>,  <span class="number">373</span>,<span class="number">326</span></span><br><span class="line">classes=<span class="number">3</span> # you need to modify</span><br><span class="line">num=<span class="number">9</span></span><br><span class="line">jitter=<span class="number">.3</span></span><br><span class="line">ignore_thresh = <span class="number">.5</span></span><br><span class="line">truth_thresh = <span class="number">1</span></span><br><span class="line">random=<span class="number">1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">[convolutional]</span><br><span class="line">size=<span class="number">1</span></span><br><span class="line">stride=<span class="number">1</span></span><br><span class="line">pad=<span class="number">1</span></span><br><span class="line">filters=<span class="number">24</span> # filters = <span class="number">3</span> * (classes + <span class="number">5</span>)</span><br><span class="line">activation=linear</span><br><span class="line"></span><br><span class="line">[yolo]</span><br><span class="line">mask = <span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span></span><br><span class="line">anchors = <span class="number">10</span>,<span class="number">13</span>,  <span class="number">16</span>,<span class="number">30</span>,  <span class="number">33</span>,<span class="number">23</span>,  <span class="number">30</span>,<span class="number">61</span>,  <span class="number">62</span>,<span class="number">45</span>,  <span class="number">59</span>,<span class="number">119</span>,  <span class="number">116</span>,<span class="number">90</span>,  <span class="number">156</span>,<span class="number">198</span>,  <span class="number">373</span>,<span class="number">326</span></span><br><span class="line">classes=<span class="number">3</span> # you need to modify</span><br><span class="line">num=<span class="number">9</span></span><br><span class="line">jitter=<span class="number">.3</span></span><br><span class="line">ignore_thresh = <span class="number">.5</span></span><br><span class="line">truth_thresh = <span class="number">1</span></span><br><span class="line">random=<span class="number">1</span></span><br></pre></td></tr></table></figure></li>
+<li>Now, we can run the training command. Here we train from scratch, you also can download pre-trained weights from YOLO official website above.<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg</span><br></pre></td></tr></table></figure></li>
+<li>In addition, you can read <a href="https://timebutt.github.io/static/understanding-yolov2-training-output/" target="_blank" rel="noopener">this article</a> to understand outputs of YOLO.</li>
 </ul>
-<blockquote>
-<p><a href="https://www.jianshu.com/p/6f2fdba48129" target="_blank" rel="noopener">参考文章</a></p>
-</blockquote>
+<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>It’s easy to test model trainde well. Just run command here.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./darknet detector test cfg/voc.data cfg/yolov3-voc.cfg backup/yolov3-voc_final.weights &lt;path to testing image&gt;</span><br></pre></td></tr></table></figure>
+<p>If you get <strong>no bounding box</strong> in <code>predictions.jpg</code>, you firstly need to check your <code>cfg/yolov3-voc.cfg</code> file. In fact, I forgot to uncomment testing configuration in <code>.cfg</code> file. And just modify it, you will get correct prediction results. If nothing changes, you need to think about whether your custom dataset correctly generated.</p>
+<h2 id="FAQs"><a href="#FAQs" class="headerlink" title="FAQs"></a>FAQs</h2><h3 id="1-Dimension-mismatch-when-loading-network-model"><a href="#1-Dimension-mismatch-when-loading-network-model" class="headerlink" title="1. Dimension mismatch when loading network model"></a>1. <code>Dimension mismatch</code> when loading network model</h3><p>Obviously, your network filters is incorrect. Go back to <code>.cfg</code> file and modify <code>filters</code>.</p>
+<h3 id="2-CUDA-Out-of-Memory-when-loading-data"><a href="#2-CUDA-Out-of-Memory-when-loading-data" class="headerlink" title="2. CUDA Out of Memory when loading data"></a>2. <code>CUDA Out of Memory</code> when loading data</h3><p>You need to modify <code>cfg/yolov3-voc.cfg</code>. Increase <code>subdivisions</code>, or decrease <code>batch</code>.</p>
+<h3 id="3-Appearence-of-lots-of-nan-when-training"><a href="#3-Appearence-of-lots-of-nan-when-training" class="headerlink" title="3. Appearence of lots of nan when training."></a>3. Appearence of lots of <code>nan</code> when training.</h3><p>First, check your data path and data whether is correct. If that is not ok, you should focus on <code>learning_rate</code>. Generally, you should decrease your <code>learning_rate</code> in <code>.cfg</code> file.</p>
+<h3 id="4-Training-output-obj-0-000000"><a href="#4-Training-output-obj-0-000000" class="headerlink" title="4. Training output obj=0.000000"></a>4. Training output <code>obj=0.000000</code></h3><p>It means that your network does not detect any object. Definately, it has some problems. You could tune <code>learning_rate</code> and <code>batch</code> in <code>.cfg</code> file. Generally, you should decrease the <code>learning_rate</code> or decrease the <code>batch</code>.</p>
+<h3 id="5-No-bounding-boxes-when-testing-images"><a href="#5-No-bounding-boxes-when-testing-images" class="headerlink" title="5. No bounding boxes when testing images"></a>5. No bounding boxes when testing images</h3><p>I also encountered the problem. Actually, it is a careless problem. Just go back to the <code>.cfg</code> file and uncomment testing configuration and comment training configuration.</p>
 ]]></content>
       <categories>
-        <category>Tools</category>
+        <category>Deep Learning</category>
       </categories>
       <tags>
-        <tag>Git</tag>
+        <tag>YOLO</tag>
+        <tag>Object Detection</tag>
       </tags>
   </entry>
   <entry>
@@ -286,42 +256,16 @@
       </tags>
   </entry>
   <entry>
-    <title>用自定义数据集训练YOLO</title>
-    <url>/2020/04/05/%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE%E9%9B%86%E8%AE%AD%E7%BB%83YOLO/</url>
-    <content><![CDATA[<h1 id="YOLO-Training-Conclusion-on-Custom-Dataset-and-FAQs"><a href="#YOLO-Training-Conclusion-on-Custom-Dataset-and-FAQs" class="headerlink" title="YOLO Training Conclusion on Custom Dataset and FAQs"></a>YOLO Training Conclusion on Custom Dataset and FAQs</h1><blockquote>
-<p><a href="https://pjreddie.com/darknet/yolo/" target="_blank" rel="noopener">YOLO official website</a></p>
+    <title>about</title>
+    <url>/2020/04/03/about/</url>
+    <content><![CDATA[<blockquote>
+<p>一个即将步入社会的研究生<br>Email: <a href="mailto:shengweixu@outlook.com">shengweixu@outlook.com</a><br>WeChat: swxu24<br>QQ: 1093790349<br>友情链接: <a href="https://github.com/swxu" target="_blank" rel="noopener">Github</a> <a href="https://www.cnblogs.com/swxu/" target="_blank" rel="noopener">博客园</a></p>
 </blockquote>
-<h2 id="Prepare-dataset"><a href="#Prepare-dataset" class="headerlink" title="Prepare dataset"></a>Prepare dataset</h2><p>You can google how to prepare your custom dataset. There are lots of tutorials available. I recommend <a href="https://timebutt.github.io/static/how-to-train-yolov2-to-detect-custom-objects/" target="_blank" rel="noopener">this article</a>. </p>
-<p>My custom dataset has ~15k images and 3 classes. I just replace image files in VOC dataset <code>/VOCdevkit</code> with my custom images and run official python script to generate data YOLO needs. You can click the official website link above to find the script. It’s easy to learn how to use it.</p>
-<h2 id="Compile"><a href="#Compile" class="headerlink" title="Compile"></a>Compile</h2><p>We need to modify <code>Makefile</code> before we <code>make</code> it.</p>
-<figure class="highlight makefile"><table><tr><td class="code"><pre><span class="line">GPU=1 <span class="comment"># If you have a GPU, it will speed up the training process greatly.</span></span><br><span class="line">CUDNN=1 <span class="comment"># Using cudnn</span></span><br><span class="line">OPENCV=0 <span class="comment"># Using camera</span></span><br><span class="line">OPENMP=0</span><br><span class="line">DEBUG=0</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<p>Then, just <code>make</code> the source code.</p>
-<h2 id="Train"><a href="#Train" class="headerlink" title="Train"></a>Train</h2><p>There are three files needing to be modified before training on custom dataset.</p>
-<ul>
-<li>First, you just need to write class names in your dataset to <code>data/voc.names</code>. Of course, you can change the file name.<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span></span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
-<li>Second, you need to modify <code>cfg/voc.names</code>. Just change it based on your custom dataset and file paths.<figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="attr">classes</span>= <span class="number">3</span></span><br><span class="line"><span class="attr">train</span>  = &lt;path to train file&gt;/train.txt</span><br><span class="line"><span class="attr">valid</span>  = &lt;path to test file&gt;/test.txt</span><br><span class="line"><span class="attr">names</span> = data/voc.names</span><br><span class="line"><span class="attr">backup</span> = backup</span><br></pre></td></tr></table></figure></li>
-<li>Before strating step 3, I recommend you to read <a href="https://stackoverflow.com/questions/50390836/understanding-darknets-yolo-cfg-config-files" target="_blank" rel="noopener">this article</a> to understand what parameters mean.</li>
-<li>Third, the key step here. We need to modify yolo network configuration to meet our requirements for custom dataset. Read configuration below <strong>carefully</strong>. Here we give two examples, <code>yolov2-tiny-voc.cfg</code> and <code>yolov3-voc.cfg</code>, you can configure the network you like.<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// yolov2-tiny-voc.cfg</span></span><br><span class="line">[net]</span><br><span class="line"># Testing</span><br><span class="line"># batch=<span class="number">1</span></span><br><span class="line"># subdivisions=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"># Training</span><br><span class="line">batch=<span class="number">64</span> # you need to comment testing cfg <span class="keyword">and</span> uncomment training cfg</span><br><span class="line">subdivisions=<span class="number">2</span></span><br><span class="line"></span><br><span class="line">width=<span class="number">416</span></span><br><span class="line">height=<span class="number">416</span></span><br><span class="line">channels=<span class="number">3</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"># you can change it <span class="keyword">for</span> your own settings</span><br><span class="line">learning_rate=<span class="number">0.001</span></span><br><span class="line">max_batches = <span class="number">40200</span></span><br><span class="line">policy=steps</span><br><span class="line">steps=<span class="number">-1</span>,<span class="number">100</span>,<span class="number">20000</span>,<span class="number">30000</span></span><br><span class="line">scales=<span class="number">.1</span>,<span class="number">10</span>,<span class="number">.1</span>,<span class="number">.1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">[convolutional]</span><br><span class="line">size=<span class="number">1</span></span><br><span class="line">stride=<span class="number">1</span></span><br><span class="line">pad=<span class="number">1</span></span><br><span class="line">filters=<span class="number">40</span> # filters = num * (classes + coords + <span class="number">1</span>) = <span class="number">5</span> * (<span class="number">3</span> + <span class="number">4</span> + <span class="number">1</span>)</span><br><span class="line">activation=linear</span><br><span class="line"></span><br><span class="line">[region]</span><br><span class="line">anchors = <span class="number">1.08</span>,<span class="number">1.19</span>,  <span class="number">3.42</span>,<span class="number">4.41</span>,  <span class="number">6.63</span>,<span class="number">11.38</span>,  <span class="number">9.42</span>,<span class="number">5.11</span>,  <span class="number">16.62</span>,<span class="number">10.52</span></span><br><span class="line">bias_match=<span class="number">1</span></span><br><span class="line">classes=<span class="number">3</span> # you may need to change <span class="keyword">this</span></span><br><span class="line">coords=<span class="number">4</span> # compute filters above</span><br><span class="line">num=<span class="number">5</span> # compute filters above</span><br><span class="line">softmax=<span class="number">1</span></span><br><span class="line">jitter=<span class="number">.2</span></span><br><span class="line">rescore=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">object_scale=<span class="number">5</span></span><br><span class="line">noobject_scale=<span class="number">1</span></span><br><span class="line">class_scale=<span class="number">1</span></span><br><span class="line">coord_scale=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">absolute=<span class="number">1</span></span><br><span class="line">thresh = <span class="number">.6</span></span><br><span class="line">random=<span class="number">1</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight angelscript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// yolov3-voc.cfg</span></span><br><span class="line">[net]</span><br><span class="line"># Testing</span><br><span class="line"># batch=<span class="number">1</span></span><br><span class="line"># subdivisions=<span class="number">1</span></span><br><span class="line"></span><br><span class="line"># Training</span><br><span class="line">batch=<span class="number">64</span> # you need to comment testing cfg <span class="keyword">and</span> uncomment training cfg</span><br><span class="line">subdivisions=<span class="number">2</span></span><br><span class="line"></span><br><span class="line">width=<span class="number">416</span></span><br><span class="line">height=<span class="number">416</span></span><br><span class="line">channels=<span class="number">3</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"># you can change it <span class="keyword">for</span> your own settings</span><br><span class="line">learning_rate=<span class="number">0.001</span></span><br><span class="line">max_batches = <span class="number">40200</span></span><br><span class="line">policy=steps</span><br><span class="line">steps=<span class="number">-1</span>,<span class="number">100</span>,<span class="number">20000</span>,<span class="number">30000</span></span><br><span class="line">scales=<span class="number">.1</span>,<span class="number">10</span>,<span class="number">.1</span>,<span class="number">.1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">[convolutional]</span><br><span class="line">size=<span class="number">1</span></span><br><span class="line">stride=<span class="number">1</span></span><br><span class="line">pad=<span class="number">1</span></span><br><span class="line">filters=<span class="number">24</span> # filters = <span class="number">3</span> * (classes + <span class="number">5</span>)</span><br><span class="line">activation=linear</span><br><span class="line"></span><br><span class="line">[yolo]</span><br><span class="line">mask = <span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span></span><br><span class="line">anchors = <span class="number">10</span>,<span class="number">13</span>,  <span class="number">16</span>,<span class="number">30</span>,  <span class="number">33</span>,<span class="number">23</span>,  <span class="number">30</span>,<span class="number">61</span>,  <span class="number">62</span>,<span class="number">45</span>,  <span class="number">59</span>,<span class="number">119</span>,  <span class="number">116</span>,<span class="number">90</span>,  <span class="number">156</span>,<span class="number">198</span>,  <span class="number">373</span>,<span class="number">326</span></span><br><span class="line">classes=<span class="number">3</span> # you need to modify</span><br><span class="line">num=<span class="number">9</span></span><br><span class="line">jitter=<span class="number">.3</span></span><br><span class="line">ignore_thresh = <span class="number">.5</span></span><br><span class="line">truth_thresh = <span class="number">1</span></span><br><span class="line">random=<span class="number">1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">[convolutional]</span><br><span class="line">size=<span class="number">1</span></span><br><span class="line">stride=<span class="number">1</span></span><br><span class="line">pad=<span class="number">1</span></span><br><span class="line">filters=<span class="number">24</span> # filters = <span class="number">3</span> * (classes + <span class="number">5</span>)</span><br><span class="line">activation=linear</span><br><span class="line"></span><br><span class="line">[yolo]</span><br><span class="line">mask = <span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span></span><br><span class="line">anchors = <span class="number">10</span>,<span class="number">13</span>,  <span class="number">16</span>,<span class="number">30</span>,  <span class="number">33</span>,<span class="number">23</span>,  <span class="number">30</span>,<span class="number">61</span>,  <span class="number">62</span>,<span class="number">45</span>,  <span class="number">59</span>,<span class="number">119</span>,  <span class="number">116</span>,<span class="number">90</span>,  <span class="number">156</span>,<span class="number">198</span>,  <span class="number">373</span>,<span class="number">326</span></span><br><span class="line">classes=<span class="number">3</span> # you need to modify</span><br><span class="line">num=<span class="number">9</span></span><br><span class="line">jitter=<span class="number">.3</span></span><br><span class="line">ignore_thresh = <span class="number">.5</span></span><br><span class="line">truth_thresh = <span class="number">1</span></span><br><span class="line">random=<span class="number">1</span></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">[convolutional]</span><br><span class="line">size=<span class="number">1</span></span><br><span class="line">stride=<span class="number">1</span></span><br><span class="line">pad=<span class="number">1</span></span><br><span class="line">filters=<span class="number">24</span> # filters = <span class="number">3</span> * (classes + <span class="number">5</span>)</span><br><span class="line">activation=linear</span><br><span class="line"></span><br><span class="line">[yolo]</span><br><span class="line">mask = <span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span></span><br><span class="line">anchors = <span class="number">10</span>,<span class="number">13</span>,  <span class="number">16</span>,<span class="number">30</span>,  <span class="number">33</span>,<span class="number">23</span>,  <span class="number">30</span>,<span class="number">61</span>,  <span class="number">62</span>,<span class="number">45</span>,  <span class="number">59</span>,<span class="number">119</span>,  <span class="number">116</span>,<span class="number">90</span>,  <span class="number">156</span>,<span class="number">198</span>,  <span class="number">373</span>,<span class="number">326</span></span><br><span class="line">classes=<span class="number">3</span> # you need to modify</span><br><span class="line">num=<span class="number">9</span></span><br><span class="line">jitter=<span class="number">.3</span></span><br><span class="line">ignore_thresh = <span class="number">.5</span></span><br><span class="line">truth_thresh = <span class="number">1</span></span><br><span class="line">random=<span class="number">1</span></span><br></pre></td></tr></table></figure></li>
-<li>Now, we can run the training command. Here we train from scratch, you also can download pre-trained weights from YOLO official website above.<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./darknet detector train cfg/voc.data cfg/yolov3-voc.cfg</span><br></pre></td></tr></table></figure></li>
-<li>In addition, you can read <a href="https://timebutt.github.io/static/understanding-yolov2-training-output/" target="_blank" rel="noopener">this article</a> to understand outputs of YOLO.</li>
-</ul>
-<h2 id="Test"><a href="#Test" class="headerlink" title="Test"></a>Test</h2><p>It’s easy to test model trainde well. Just run command here.</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">./darknet detector test cfg/voc.data cfg/yolov3-voc.cfg backup/yolov3-voc_final.weights &lt;path to testing image&gt;</span><br></pre></td></tr></table></figure>
-<p>If you get <strong>no bounding box</strong> in <code>predictions.jpg</code>, you firstly need to check your <code>cfg/yolov3-voc.cfg</code> file. In fact, I forgot to uncomment testing configuration in <code>.cfg</code> file. And just modify it, you will get correct prediction results. If nothing changes, you need to think about whether your custom dataset correctly generated.</p>
-<h2 id="FAQs"><a href="#FAQs" class="headerlink" title="FAQs"></a>FAQs</h2><h3 id="1-Dimension-mismatch-when-loading-network-model"><a href="#1-Dimension-mismatch-when-loading-network-model" class="headerlink" title="1. Dimension mismatch when loading network model"></a>1. <code>Dimension mismatch</code> when loading network model</h3><p>Obviously, your network filters is incorrect. Go back to <code>.cfg</code> file and modify <code>filters</code>.</p>
-<h3 id="2-CUDA-Out-of-Memory-when-loading-data"><a href="#2-CUDA-Out-of-Memory-when-loading-data" class="headerlink" title="2. CUDA Out of Memory when loading data"></a>2. <code>CUDA Out of Memory</code> when loading data</h3><p>You need to modify <code>cfg/yolov3-voc.cfg</code>. Increase <code>subdivisions</code>, or decrease <code>batch</code>.</p>
-<h3 id="3-Appearence-of-lots-of-nan-when-training"><a href="#3-Appearence-of-lots-of-nan-when-training" class="headerlink" title="3. Appearence of lots of nan when training."></a>3. Appearence of lots of <code>nan</code> when training.</h3><p>First, check your data path and data whether is correct. If that is not ok, you should focus on <code>learning_rate</code>. Generally, you should decrease your <code>learning_rate</code> in <code>.cfg</code> file.</p>
-<h3 id="4-Training-output-obj-0-000000"><a href="#4-Training-output-obj-0-000000" class="headerlink" title="4. Training output obj=0.000000"></a>4. Training output <code>obj=0.000000</code></h3><p>It means that your network does not detect any object. Definately, it has some problems. You could tune <code>learning_rate</code> and <code>batch</code> in <code>.cfg</code> file. Generally, you should decrease the <code>learning_rate</code> or decrease the <code>batch</code>.</p>
-<h3 id="5-No-bounding-boxes-when-testing-images"><a href="#5-No-bounding-boxes-when-testing-images" class="headerlink" title="5. No bounding boxes when testing images"></a>5. No bounding boxes when testing images</h3><p>I also encountered the problem. Actually, it is a careless problem. Just go back to the <code>.cfg</code> file and uncomment testing configuration and comment training configuration.</p>
+<img src="../../../../images/2020/04/03/avatar.jpg" alt="avatar" width="300" style="border-radius:50%"/>
 ]]></content>
       <categories>
-        <category>Deep Learning</category>
+        <category>Daily</category>
       </categories>
-      <tags>
-        <tag>YOLO</tag>
-        <tag>Object Detection</tag>
-      </tags>
   </entry>
   <entry>
     <title>职场真相</title>
@@ -579,13 +523,55 @@
       </tags>
   </entry>
   <entry>
-    <title>Git配置</title>
-    <url>/2020/04/03/Git%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<ul>
-<li><a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener">Git toturial</a></li>
-<li><a href="https://github.com/arslanbilal/git-cheat-sheet" target="_blank" rel="noopener">Git Cheat Sheet</a></li>
+    <title>将Github Pages博客同步到Gitee Pages</title>
+    <url>/2020/04/22/%E5%B0%86Github-Pages%E5%8D%9A%E5%AE%A2%E5%90%8C%E6%AD%A5%E5%88%B0Gitee-Pages/</url>
+    <content><![CDATA[<h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><p>国内访问 Github 的速度实在太慢, 所以打算将博客同步到 Gitee. </p>
+<p>如果还没有博客, 请参考我之前的文章 – <a href="https://swxu.github.io/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/">搭建Hexo博客</a>.</p>
+<h2 id="How"><a href="#How" class="headerlink" title="How"></a>How</h2><ol>
+<li>注册 <a href="https://gitee.com/" target="_blank" rel="noopener">Gitee</a> 账号, 建一个<strong>与用户名相同</strong>的 repo, 这里与 Github 不同, Github 是需要建一个 <code>{username}.github.io</code> 的 repo.</li>
+<li>在 Gitee repo 服务中设置启动 Gitee Pages. 此处不需要设置什么东西, 直接开启就好.<br><img src="../../../../images/2020/04/22/GiteePages.png" alt="GiteePages"></li>
+<li>修改博客根目录下的 <code>_config.yml</code>, 如下<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> </span><br><span class="line">    <span class="attr">github:</span> <span class="string">https://github.com/shengwei-xu/shengwei-xu.github.io</span></span><br><span class="line">    <span class="attr">gitee:</span> <span class="string">https://gitee.com/shengwei-xu/shengwei-xu.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure></li>
+<li>到这里就可以利用之前已经安装好的 <code>hexo-deployer-git</code> 插件来发布文章到 Github Pages 和 Gitee Pages 了.</li>
+<li>Gitee 与 Github 有个很重要的不同点, <strong>Gitee 不免费支持推送自动部署</strong>, 要想实现 Github Pages 推送后自动部署的功能需要花钱. 如果不想花钱, 可以在上面所说的 repo 服务里的 Gitee Pages 中手动更新, 每次推送完文章来这里点一下更新就可以了.<br><img src="../../../../images/2020/04/22/GiteePagesUpdate.png" alt="GiteePagesUpdate"></li>
+</ol>
+<h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><ul>
+<li><a href="http://shengweixu.gitee.io/" target="_blank" rel="noopener">Gitee Pages 博客</a></li>
+<li><a href="http://swxu.github.io/">Github Pages 博客</a></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># .gitconfig 文件</span><br><span class="line">[user]</span><br><span class="line">	name &#x3D; shengweixu</span><br><span class="line">	email &#x3D; shengweixu@outlook.com</span><br><span class="line">#[http]</span><br><span class="line">#	proxy &#x3D; socks5:&#x2F;&#x2F;127.0.0.1:1086</span><br><span class="line">#[https]</span><br><span class="line">#	proxy &#x3D; socks5:&#x2F;&#x2F;127.0.0.1:1086</span><br><span class="line">[color]</span><br><span class="line">	ui &#x3D; true</span><br><span class="line">[alias]</span><br><span class="line">	st &#x3D; status</span><br><span class="line">	co &#x3D; checkout</span><br><span class="line">	ci &#x3D; commit</span><br><span class="line">	br &#x3D; branch</span><br><span class="line">	unstage &#x3D; reset HEAD</span><br><span class="line">	lg &#x3D; log --color --graph --pretty&#x3D;format:&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39; --abbrev-commit</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://blog.csdn.net/yakuaback/article/details/104513748" target="_blank" rel="noopener">参考文章</a></p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>Hexo</tag>
+        <tag>Git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Github修改username后修复git历史异常</title>
+    <url>/2020/04/13/Github%E4%BF%AE%E6%94%B9username%E5%90%8E%E4%BF%AE%E5%A4%8Dgit%E5%8E%86%E5%8F%B2%E5%BC%82%E5%B8%B8/</url>
+    <content><![CDATA[<ol>
+<li><p>修改 <code>~/.gitconfig</code> 文件中的 <code>user.name</code>, <code>user.email</code>.</p>
+</li>
+<li><p>将下面的脚本文件 <code>git-user-change.sh</code> 放在需要修改的项目的上一层文件夹中, <strong>脚本的源码中需要修改对应的用户名和邮箱</strong>.</p>
+</li>
+<li><p>在项目根目录下执行 <code>sh ../git-user-change.sh</code> 便开始自动化重写所有脚本能匹配到的提交信息了. 拥有条件判断的此脚本, 最大的好处便是, 不会覆盖掉团队协作项目中, 他人的提交信息.<br>下面这条命令会将项目 Git 所有历史里删除对 src.zip 的记录, 整个 .git 文件夹会轻很多. <code>git filter-branch --force --index-filter &#39;git rm -rf --cached --ignore-unmatch ./src.zip&#39; --prune-empty --tag-name-filter cat -- --all</code></p>
+</li>
+<li><p>强制更新 <code>git push origin --force</code>, 如果需要授权, 在 github 上修改 SSH 公钥.</p>
+</li>
+</ol>
+<ul>
+<li>下面是 <code>git-user-change.sh</code> 的代码, 保存后执行上面的命令, 其中 <code>if</code> 中的判断条件是原来的邮箱, <code>then</code> 中是现在的名字和邮箱.<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/sh</span></span><br><span class="line"> </span><br><span class="line">git filter-branch --env-filter '</span><br><span class="line">    an="$GIT_AUTHOR_NAME"</span><br><span class="line">    am="$GIT_AUTHOR_EMAIL"</span><br><span class="line">    cn="$GIT_COMMITTER_NAME"</span><br><span class="line">    cm="$GIT_COMMITTER_EMAIL"</span><br><span class="line">    if [ "$GIT_COMMITTER_EMAIL" = "willsnowdev@gmail.com" ]</span><br><span class="line">    then</span><br><span class="line">        cn="shengwei.xu"</span><br><span class="line">        cm="shengwei.xu@qq.com"</span><br><span class="line">    fi</span><br><span class="line">    if [ "$GIT_AUTHOR_EMAIL" = "willsnowdev@gmail.com" ]</span><br><span class="line">    then</span><br><span class="line">        an="shengwei.xu"</span><br><span class="line">        am="shengwei.xu@qq.com"</span><br><span class="line">    fi</span><br><span class="line"> </span><br><span class="line">    export GIT_AUTHOR_NAME="$an"</span><br><span class="line">    export GIT_AUTHOR_EMAIL="$am"</span><br><span class="line">    export GIT_COMMITTER_NAME="$cn"</span><br><span class="line">    export GIT_COMMITTER_EMAIL="$cm"</span><br><span class="line">'</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/6f2fdba48129" target="_blank" rel="noopener">参考文章</a></p>
+</blockquote>
 ]]></content>
       <categories>
         <category>Tools</category>
@@ -595,60 +581,74 @@
       </tags>
   </entry>
   <entry>
-    <title>about</title>
-    <url>/2020/04/03/about/</url>
-    <content><![CDATA[<blockquote>
-<p>一个即将步入社会的研究生<br>Email: <a href="mailto:shengweixu@outlook.com">shengweixu@outlook.com</a><br>WeChat: swxu24<br>QQ: 1093790349<br>友情链接: <a href="https://github.com/swxu" target="_blank" rel="noopener">Github</a> <a href="https://www.cnblogs.com/swxu/" target="_blank" rel="noopener">博客园</a></p>
-</blockquote>
-<img src="../../../../images/2020/04/03/avatar.jpg" alt="avatar" width="300" style="border-radius:50%"/>
-]]></content>
-      <categories>
-        <category>Daily</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>搭建Hexo博客</title>
-    <url>/2020/04/02/%E6%90%AD%E5%BB%BAHexo%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<h2 id="安装部件"><a href="#安装部件" class="headerlink" title="安装部件"></a>安装部件</h2><ol>
-<li>git</li>
-<li>node.js<ul>
-<li>安装国内源 (可跳过, 下面步骤中的 <code>cnpm</code> 换成 <code>npm</code>)<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure></li>
-<li>安装 hexo<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure></li>
-<li>安装 deployer 插件, 在 <code>hexo deploy</code> 之后自动 <code>push</code> 到 github 仓库<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cnpm install --save hexo-deployer-git</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ol>
-<h2 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h2><ol>
-<li>创建博客文件夹并初始化<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">mkdir HexoBlog &amp;&amp; cd HexoBlog/ &amp;&amp; sudo hexo init</span><br></pre></td></tr></table></figure></li>
-<li>修改 _config.yml<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 在文件的最后</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/swxu/swxu.github.io</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><ol>
-<li><code>hexo new &quot;文章题目&quot;</code> 创建博客</li>
-<li><code>hexo server</code> 可以在本地预览</li>
-<li><code>hexo deploy</code> 通过之前安装的插件直接部署到 github</li>
-<li><code>hexo help</code> 查看 hexo 的其他命令</li>
-</ol>
-<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><blockquote>
-<p><a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank" rel="noopener">Ayer 的 Github 主页</a></p>
-</blockquote>
-<ol>
-<li>把主题 clone 到 themes 文件夹下<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/Shen-Yu/hexo-theme-ayer.git themes/ayer</span><br></pre></td></tr></table></figure></li>
-<li>修改 _config.yml<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">theme:</span> <span class="string">ayer</span></span><br></pre></td></tr></table></figure></li>
-<li>其他修改参考 <a href="https://shen-yu.gitee.io/2019/ayer/" target="_blank" rel="noopener">Ayer</a> 的说明</li>
-</ol>
+    <title>SSH连接Linux后出现ascii异常问题</title>
+    <url>/2020/07/08/SSH%E8%BF%9E%E6%8E%A5Linux%E5%90%8E%E5%87%BA%E7%8E%B0ascii%E5%BC%82%E5%B8%B8%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>Mac 通过 SSH 连接 Linux 服务器，尝试开启服务器上 Python3.6 的 web 服务的时候，服务发生无法解码的异常。</p>
+<figure class="highlight ada"><table><tr><td class="code"><pre><span class="line">UnicodeDecodeError: <span class="symbol">'ascii</span>' codec can<span class="symbol">'t</span> decode byte <span class="number">0</span>xe5 <span class="keyword">in</span> position <span class="number">443</span>: ordinal <span class="keyword">not</span> <span class="keyword">in</span> <span class="keyword">range</span>(<span class="number">128</span>)</span><br></pre></td></tr></table></figure>
+<p>令人费解的是，别人跟我运行相同命令是 ok 的。:(</p>
+<h2 id="解决过程"><a href="#解决过程" class="headerlink" title="解决过程"></a>解决过程</h2><p>首先搜一波资料，看了这篇 <a href="https://blog.csdn.net/j___t/article/details/97705231" target="_blank" rel="noopener">帖子</a>，了解了大概是关于 <code>locale</code> 的问题。</p>
+<p>按照帖子中的方法设置了 <code>export PYTHONIOENCODING=utf-8</code>，然而还是没有效果，<code>sys.stdout.encoding</code> 依然输出 <code>ANSI_X3.4-1968</code>。而且服务器并不缺语言包。</p>
+<p>接着搜索，看了这篇 <a href="https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows" target="_blank" rel="noopener">StackOverflow 的帖子</a>，通过 <code>locale</code> 和 <code>locale -a</code> 命令检查了服务器的配置都没有问题，很是纳闷。</p>
+<p>执行 <code>locale</code> 命令的时候出现一行 <code>Cannot set LC_CTYPE to default locale: No such file or directory</code>，再次搜索这行报错，发现了这篇 <a href="https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672" target="_blank" rel="noopener">帖子</a>，帖子中第二高赞的回答中，提到了 <strong>Mac 通过 SSH 连接 Linux 服务器的时候，iTerm/Terminal 会自动设置环境变量，在终端的设置中取消自动设置即可</strong>。尝试了一下，果然有效。:P</p>
+<h2 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h2><p>上面的解决方法可能导致 Mac 本地终端字符解码出现问题，可以检查 Mac 的 <code>locale</code> 环境变量有没有设置为 <code>utf-8</code>，这里就不赘述了。</p>
 <blockquote>
-<p>参考 <a href="https://www.bilibili.com/video/BV1Yb411a7ty" target="_blank" rel="noopener">CodeSheep 视频</a></p>
+<p>参考资料<br><a href="https://blog.csdn.net/j___t/article/details/97705231" target="_blank" rel="noopener">https://blog.csdn.net/j___t/article/details/97705231</a><br><a href="https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows" target="_blank" rel="noopener">https://stackoverflow.com/questions/35502328/unicodeencodeerror-on-linux-but-not-on-windows</a><br><a href="https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672" target="_blank" rel="noopener">https://askubuntu.com/questions/599808/cannot-set-lc-ctype-to-default-locale-no-such-file-or-directory/778672#778672</a></p>
 </blockquote>
 ]]></content>
       <categories>
         <category>Tools</category>
       </categories>
       <tags>
-        <tag>Hexo</tag>
+        <tag>SSH</tag>
+        <tag>Terminal</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>职场沟通之沟通目标及常见误区漫谈</title>
+    <url>/2020/06/28/%E8%81%8C%E5%9C%BA%E6%B2%9F%E9%80%9A%E4%B9%8B%E6%B2%9F%E9%80%9A%E7%9B%AE%E6%A0%87%E5%8F%8A%E5%B8%B8%E8%A7%81%E8%AF%AF%E5%8C%BA%E6%BC%AB%E8%B0%88/</url>
+    <content><![CDATA[<blockquote>
+<p>记录曹大 caoz 2020 年中分享 – 职场沟通之沟通目标及常见误区漫谈</p>
+</blockquote>
+<h2 id="基于同理心，确定沟通目标"><a href="#基于同理心，确定沟通目标" class="headerlink" title="基于同理心，确定沟通目标"></a>基于同理心，确定沟通目标</h2><p>所有的沟通，表达，最核心的不是你表达了什么，而是对方接受了多少。所以，<strong>请务必记住你沟通的目标</strong>。</p>
+<p>那么，沟通目标，我分为三个层次，需要渐进前进。</p>
+<p>第一，对方能否明白你的意图。第一层目标，是能清晰明了的表达你的诉求和目标，让对方能够完全明白你所表达的是什么。</p>
+<p>第二，对方是否信任你的陈述。第二层目标，是能够让对方相信你所表达的诉求，其背景信息资料是可信任的，可被证明的。当你面对陌生人进行沟通的时候，需要做一定的自我证明。</p>
+<p>第三，对方能否达成你的意图。第三层目标，也就是真正的目标，是对方能够接受你的建议和诉求，从而实现你的沟通目标，那你说，我只记得这个目标就行了，但你要达到这个目标，应该首先完成前两个阶段目标，并且，在这个阶段，这需要对方能知道，你的诉求和目标，对对方而言，价值和利益在哪里。</p>
+<p>再次强调，让对方达成你的意图，一定要找到对方的价值点和利益点，而不只是你的价值点和利益点。</p>
+<h2 id="沟通的常见误区"><a href="#沟通的常见误区" class="headerlink" title="沟通的常见误区"></a>沟通的常见误区</h2><p>沟通，最大的忌讳是沉浸于自我表达。忽略对方的接受程度。</p>
+<h3 id="问题零，强调自己的正确"><a href="#问题零，强调自己的正确" class="headerlink" title="问题零，强调自己的正确"></a>问题零，强调自己的正确</h3><p>这里我必须强调一句，沟通的目的是让对方达成你的诉求，而不是证明你的正确，这是很多人在沟通过程中最常见的错误，不要作杠精，不要为了证明自己正确而忽略了真正的诉求和目标。</p>
+<p>比如一个客户，不专业，不认可你的产品介绍，你无论如何强调自己的产品观多么正确，都无法打动对方，你应该先聆听对方的真实诉求，然后顺应他的诉求寻找产品亮点。当我们面对不专业的领导，不专业的客户，不专业的合作伙伴，强调自己正确不会帮你达成目标，只会让你更加远离目标，先彻底理清对方的逻辑和诉求，基于对方的理解和目标，去推进自己的诉求。</p>
+<h3 id="问题一，缺乏背景铺垫，缺乏关键目标"><a href="#问题一，缺乏背景铺垫，缺乏关键目标" class="headerlink" title="问题一，缺乏背景铺垫，缺乏关键目标"></a>问题一，缺乏背景铺垫，缺乏关键目标</h3><p>背景信息包括：人物背景，诸如我是谁，相关负责人是谁；项目背景，这是一个什么项目，是谁负责的项目；相关行业知识背景，某些简称和缩略语，面向非同行业人士沟通时，应解释清楚；其他背景，诸如事件的起因，或者决策的关键逻辑等等。</p>
+<p>关键目标也很重要，一个沟通诉求的最终目标是什么，很多时候人们往往忽视了这一点。</p>
+<p>典型案例，我需要数据部门加急给我做一份xxx的数据。对方的疑惑，你是谁？我们很忙，你这个事情有什么意义？你又不是我的上司，我凭什么给你做事？</p>
+<p>正确表达：我是市场部门助理谁谁谁，昨天总监会上，我们部门总监与技术总监达成一致，尽快评估上次市场活动的效果，并基于此决定下一期的活动规划和预算，由此，烦请配合，加急提供一份xxx数据，相关信息任务已经汇报给有关部门负责人，如有更多疑问，可以随时联系我的微信xxx.</p>
+<p>把背景信息和目标信息补全，别人才知道为什么这件事需要紧急处理。</p>
+<p>典型案例，请在某某业务展示页面，提供相关推荐功能。对方的疑惑，推荐的目标是什么？是追求点击率，还是追求商业转化效率，还是挖掘优质原创，缺乏关键目标，做出来的东西就很可能南辕北辙。</p>
+<p>职场沟通的时候，不要认为我知道的你也知道，不要认为背景信息所有人都了解，不要认为别人和你的知识体系及逻辑体系一致。该补充的要补充，该说明的要说明。</p>
+<h3 id="问题二，缺乏可信性评估和证明"><a href="#问题二，缺乏可信性评估和证明" class="headerlink" title="问题二，缺乏可信性评估和证明"></a>问题二，缺乏可信性评估和证明</h3><p>社群里大量帖子，我有什么什么产品，我有什么什么资源，需要什么什么资源合作。对方的疑惑，很多骗子都这么说，我怎么知道你说的是不是真的，空手套白狼的还不够多么？这还算好的，很多直接扔一句，我需要什么资源，谁有的请联系我。你谁啊，你干嘛的啊。</p>
+<p>正确表达：我的资源，可以参见xxx榜单，xxx淘宝店铺销量，xxx的粉丝数，以及媒体报道xxx，目前需要什么什么资源合作。所有你提供的背景资料，均属于公开信息，可以查验。</p>
+<p>信任成本很高的，越是掌握优质资源的人，越看中信用关系，当你希望与掌握优质资源的人建立深度联系的时候你必须明白自己应该先证明自己的信用。</p>
+<h3 id="问题三，缺乏目标激励"><a href="#问题三，缺乏目标激励" class="headerlink" title="问题三，缺乏目标激励"></a>问题三，缺乏目标激励</h3><p>你的沟通目标，是希望获得别人的资源，别人的帮助，那么问题来了，别人凭什么给你资源，或者凭什么帮助你，对别人而言，利益是什么。</p>
+<p>典型案例，我是个大学生，我学习很勤奋，我对创业很有兴趣，我很仰慕曹老师，经常拜读您的大作，我希望得到您的指导和帮助。</p>
+<p>你仰慕我我就要帮助你？我凭什么呢。再说，很多这样的，说很仰慕我，很客气，我后台一查，一次赞赏都没有，也没有加入知识星球，两句便宜话就把我套住，我就这么贱么。</p>
+<p>你的沟通诉求，对别人来说，利益点和价值点在哪里，这是很重要的，特别是一些合作诉求，很多时候，不是说一定要利益等价交换，但你只说自己需要别人的帮助，却没有任何对别人帮助回馈的表达，你指望满大街的活雷锋？</p>
+<h3 id="问题四，沉浸于自high，无法自拔"><a href="#问题四，沉浸于自high，无法自拔" class="headerlink" title="问题四，沉浸于自high，无法自拔"></a>问题四，沉浸于自high，无法自拔</h3><p>典型案例，合作邮件或者应聘邮件，大量篇幅描述自己的心路历程，介绍自己多么优秀，多么努力，多么不容易。其实很多都是多余的。当然，你说有些场合需要吹牛逼，这也能理解，适可而止。</p>
+<h3 id="问题五，主次不分，啰哩啰嗦"><a href="#问题五，主次不分，啰哩啰嗦" class="headerlink" title="问题五，主次不分，啰哩啰嗦"></a>问题五，主次不分，啰哩啰嗦</h3><p>沟通也要抓大放小，你的核心目标是什么，你的次要目标是什么，你优先希望达成的诉求是什么，什么是锦上添花的东西。</p>
+<p>沟通的目标，一定要记住，要分清主次，要理解优先级。有的没的罗嗦一大堆，恨不得一次搞定所有事情，一点点来，之前也提过，信任是需要一定基础的。如果不是特别熟或者特别信任，可以从简单的开始合作，一点点建立信任基础。</p>
+<h3 id="问题六，缺乏必要的尊重"><a href="#问题六，缺乏必要的尊重" class="headerlink" title="问题六，缺乏必要的尊重"></a>问题六，缺乏必要的尊重</h3><p>尊重包括如下：</p>
+<p>称谓上的尊重。</p>
+<p>请求语气，劳烦，有劳，麻烦您，望不吝赐教。</p>
+<p>恰当的文字感谢，感谢各位的参与，抱歉耽误您的时间。</p>
+<p>行动举止上的礼让，比如，不要抢话，尊重别人的发言，不要不耐烦，保持距离，不要口沫横飞，沟通时注意坐姿，以及眼神交流。</p>
+<p>说一些典型缺乏尊重的案例：</p>
+<p>1、后台留言，管我叫小编，真的不合适。<br>2、自来熟，没见过两三次，好像很熟，各种随便，甚至上来勾肩搭背，抱歉，有些人不那么喜欢自来熟。<br>3、抢话，急于自我表达，缺乏倾听，沟通是相互的事情，如果姿态傲慢，或者漫不经心，就显得很没有诚意。<br>4、缺乏感谢。<br>5、很多大学生好友有互黑开玩笑的习惯，进入职场后，除非特别熟悉关系特别铁，我建议尽量不要把这种习惯带入职场。<br>6、一些商务女性，姿容娇美，习惯用撒娇作为沟通竞争力，有些企业用一些这样的女生做商务，我承认在有些场合很管用，但我强调一下，不是每个场合都适用，遇到不管用的场合，请适可而止，不要不知进退。<br>7、分场合的建议和批评，比如有些你认为对方不合适的事情，很多情况下，可能私下沟通比较好，不要公开指出别人的问题和缺陷。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>沟通的时候，<br>第一，让对方知道你是谁，你的目标和诉求是什么；<br>第二，让对方信任你的表述；<br>第三，让对方愿意接受你的建议，达成你的诉求。</p>
+]]></content>
+      <categories>
+        <category>Daily</category>
+      </categories>
+      <tags>
+        <tag>职场</tag>
       </tags>
   </entry>
 </search>
